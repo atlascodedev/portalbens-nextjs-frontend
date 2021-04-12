@@ -2,6 +2,7 @@ import { SvgIcon } from "@material-ui/core";
 import { Menu } from "@material-ui/icons";
 import React from "react";
 import styled from "styled-components";
+import { MenuItem } from "../../../../../@types";
 
 const NavbarMainRoot = styled.div`
   width: 100%;
@@ -84,9 +85,14 @@ const NavbarMainDrawerButtonContainer = styled.div`
 interface NavbarMainLayoutProps {
   logo: string;
   openDrawer: (open: boolean) => void;
+  menu: MenuItem[];
 }
 
-const NavbarMainLayout = ({ logo, openDrawer }: NavbarMainLayoutProps) => {
+const NavbarMainLayout = ({
+  logo,
+  openDrawer,
+  menu,
+}: NavbarMainLayoutProps) => {
   return (
     <NavbarMainRoot>
       <NavbarMainInnerContainer>
@@ -97,10 +103,15 @@ const NavbarMainLayout = ({ logo, openDrawer }: NavbarMainLayoutProps) => {
           <SvgIcon component={Menu} />
         </NavbarMainDrawerButtonContainer>
         <NavbarMainItemContainer>
-          <NavbarMainItem>Hello</NavbarMainItem>
-          <NavbarMainItem>Hello</NavbarMainItem>
-          <NavbarMainItem>Hello</NavbarMainItem>
-          <NavbarMainItem>Hello</NavbarMainItem>
+          {menu.map((value, index) => {
+            if (!value.hidden) {
+              return (
+                <NavbarMainItem key={index} ref={value.ref}>
+                  {value.label}
+                </NavbarMainItem>
+              );
+            }
+          })}
         </NavbarMainItemContainer>
       </NavbarMainInnerContainer>
     </NavbarMainRoot>

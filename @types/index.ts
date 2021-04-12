@@ -3,6 +3,7 @@ import React from "react";
 export interface MenuItem {
   label: string;
   ref: React.RefObject<HTMLDivElement>;
+  hidden?: boolean;
 }
 
 export interface LandingGenerationItem extends MenuItem {

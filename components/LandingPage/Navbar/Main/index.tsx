@@ -24,6 +24,7 @@ const Navbar = ({ logo, menu }: Props) => {
         sidebarItems={menu}
       />
       <NavbarMainLayout
+        menu={menu}
         openDrawer={toggleDrawer}
         logo={logo}
       ></NavbarMainLayout>

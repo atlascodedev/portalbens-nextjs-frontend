@@ -10,7 +10,12 @@ function Home({}: Props) {
   const testRef = React.useRef<HTMLDivElement>(null);
 
   const { navigableArray, menuItemArray } = useLandingPageGeneration([
-    { label: "Teste", component: <div> hello there</div>, ref: testRef },
+    {
+      label: "Teste",
+      component: <div> hello there</div>,
+      ref: testRef,
+      hidden: true,
+    },
   ]);
 
   return (

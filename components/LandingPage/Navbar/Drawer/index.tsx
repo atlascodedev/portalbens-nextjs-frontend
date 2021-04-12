@@ -56,7 +56,11 @@ const LayoutDrawer = ({ open, toggleDrawer, logo, sidebarItems }: Props) => {
               <ListItem
                 onClick={() => toggleDrawer(false)}
                 key={index}
-                style={{ padding: "10px", paddingLeft: "20px" }}
+                style={{
+                  padding: "10px",
+                  paddingLeft: "20px",
+                  marginTop: "15px",
+                }}
                 alignItems="center"
               >
                 <ListItemIcon>

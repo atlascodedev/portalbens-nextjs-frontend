@@ -24,6 +24,7 @@ const useLandingPageGeneration = (
       let menuItemInternal: MenuItem = {
         label: "",
         ref: null,
+        hidden: menuItem.hidden ? true : false,
       };
 
       let landingItemInternal: NavigableComponent = {
