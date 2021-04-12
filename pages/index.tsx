@@ -3,6 +3,7 @@ import React from "react";
 import AboutUs from "../components/LandingPage/AboutUs/Main";
 import DefenseSection from "../components/LandingPage/DefenseSection/Main";
 import Hero from "../components/LandingPage/Hero/Main";
+import ProductIntro from "../components/LandingPage/ProductIntro/Main";
 import useLandingPageGeneration from "../hooks/useLandingPageGeneration";
 import LandingPageLayout from "../layout/Landing";
 
@@ -29,6 +30,12 @@ function Home({}: Props) {
       label: "Sobre nós",
       component: <AboutUs />,
       ref: aboutUsRef,
+    },
+    {
+      label: "Product intro",
+      component: <ProductIntro />,
+      ref: null,
+      hidden: true,
     },
   ]);
 

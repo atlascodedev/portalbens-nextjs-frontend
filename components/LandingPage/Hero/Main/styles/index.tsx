@@ -12,6 +12,13 @@ const HeroImageMobile = styled.img`
   position: absolute;
   top: 0;
   right: 0;
+  max-height: 450px;
+  max-width: 330px;
+
+  @media (min-width: 405px) {
+    max-height: 500px;
+    max-width: 380px;
+  }
 `;
 
 const HeroInnerContainerMobile = styled.div`

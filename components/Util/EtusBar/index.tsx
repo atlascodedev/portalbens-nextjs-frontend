@@ -5,7 +5,7 @@ import styled from "styled-components";
 const EtusBarRoot = styled.div<EtusBarProps>`
   .bar {
     height: 4px;
-    width: 120px;
+    width: ${(props) => (props.width ? props.width : "120px")};
     background: ${(props) => (props.color ? props.color : "#DA4E49")};
     margin: ${(props) => (props.margin ? props.margin : "5px")};
     position: relative;
@@ -36,7 +36,8 @@ const EtusBarRoot = styled.div<EtusBarProps>`
       -webkit-transform: translateX(0);
     }
     to {
-      -webkit-transform: translateX(120px);
+      -webkit-transform: ${(props) =>
+        props.width ? `translateX(${props.width})` : "translateX(120px)"};
     }
   }
   @keyframes MOVE-BG {
@@ -45,8 +46,10 @@ const EtusBarRoot = styled.div<EtusBarProps>`
       transform: translateX(0);
     }
     to {
-      -webkit-transform: translateX(120px);
-      transform: translateX(120px);
+      -webkit-transform: ${(props) =>
+        props.width ? `translateX(${props.width})` : "translateX(120px)"};
+      transform: ${(props) =>
+        props.width ? `translateX(${props.width})` : "translateX(120px)"};
     }
   }
 `;
@@ -60,7 +63,7 @@ interface EtusBarProps {
 
 const EtusBar = ({ color, height, margin, width }: EtusBarProps) => {
   return (
-    <EtusBarRoot>
+    <EtusBarRoot color={color} height={height} margin={margin} width={width}>
       <div className="bar"></div>
     </EtusBarRoot>
   );
