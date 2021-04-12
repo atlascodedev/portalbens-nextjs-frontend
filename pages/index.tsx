@@ -1,9 +1,7 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 
-export default function Home(props) {
-  // console.log(props);
-
+function Home(props) {
   return (
     <div className={styles.container}>
       <Head>
@@ -66,31 +64,12 @@ export default function Home(props) {
   );
 }
 
-export async function getStaticPaths() {
-  const pathResponse = await fetch(
-    "https://jsonplaceholder.typicode.com/users"
-  );
-
-  const parsedPathData = await pathResponse.json();
-
-  let path = parsedPathData.map((value) => {
-    return { params: { id: value.id } };
-  });
-
-  return { paths: path, fallback: false };
-}
-
-export const getStaticProps = async ({ params }) => {
-  const response = await fetch("https://jsonplaceholder.typicode.com/users/");
-
-  const parsedData = await response.json();
-
-
-  console.log(params)
-
+export async function getStaticProps({ params }) {
   return {
     props: {
-      users: parsedData,
+      users: "hello",
     },
   };
-};
+}
+
+export default Home;
