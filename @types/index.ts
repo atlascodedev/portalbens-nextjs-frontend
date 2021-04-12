@@ -1,7 +1,5 @@
 import React from "react";
 
-// export interface MenuItem {}
-
 export interface MenuItem {
   label: string;
   ref: React.RefObject<HTMLDivElement>;
@@ -12,5 +10,5 @@ export interface LandingGenerationItem extends MenuItem {
 }
 
 export interface NavigableComponent {
-  sectionElement: JSX.Element | null;
+  navigableElement: JSX.Element | null;
 }

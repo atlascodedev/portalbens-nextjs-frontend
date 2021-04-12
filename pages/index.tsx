@@ -1,36 +1,36 @@
 import Head from "next/head";
 import React from "react";
 import useLandingPageGeneration from "../hooks/useLandingPageGeneration";
+import LandingPageLayout from "../layout/Landing";
 
-function Home(props) {
+interface Props {}
+
+function Home({}: Props) {
+  const topRef = React.useRef<HTMLDivElement>(null);
   const testRef = React.useRef<HTMLDivElement>(null);
 
-  const landingPage = useLandingPageGeneration([
+  const { navigableArray, menuItemArray } = useLandingPageGeneration([
     { label: "Teste", component: <div> hello there</div>, ref: testRef },
   ]);
 
   return (
     <div>
       <Head>
-        <title>Create Next App</title>
+        <title>Portal Bens Contemplados</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        {landingPage.map((navigable, index) => {
-          return <React.Fragment>{navigable.sectionElement}</React.Fragment>;
+      <LandingPageLayout menu={menuItemArray}>
+        {navigableArray.map((navigable, index) => {
+          return (
+            <React.Fragment key={index}>
+              {navigable.navigableElement}
+            </React.Fragment>
+          );
         })}
-      </main>
+      </LandingPageLayout>
     </div>
   );
-}
-
-export async function getStaticProps({ params }) {
-  return {
-    props: {
-      users: "hello",
-    },
-  };
 }
 
 export default Home;

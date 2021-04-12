@@ -8,24 +8,34 @@ import converToSlug from "../../helper/convertToSlug";
 
 const useLandingPageGeneration = (
   items: LandingGenerationItem[]
-): NavigableComponent[] => {
+): { navigableArray: NavigableComponent[]; menuItemArray: MenuItem[] } => {
   const [landingItems, setLandingItems] = React.useState<NavigableComponent[]>(
     []
   );
+  const [menuItems, setMenuItems] = React.useState<MenuItem[]>([]);
 
   React.useEffect(() => {
     let landingItemTemp: NavigableComponent[] = [];
+    let menuItemsTemp: MenuItem[] = [];
 
     for (let i = 0; i < items.length; i++) {
       const menuItem = items[i];
 
+      let menuItemInternal: MenuItem = {
+        label: "",
+        ref: null,
+      };
+
       let landingItemInternal: NavigableComponent = {
-        sectionElement: null,
+        navigableElement: null,
       };
 
       let menuIdInternal: string = converToSlug(menuItem.label);
 
-      landingItemInternal.sectionElement = (
+      menuItemInternal.label = menuItem.label;
+      menuItemInternal.ref = menuItem.ref;
+
+      landingItemInternal.navigableElement = (
         <div ref={menuItem.ref} id={menuIdInternal}>
           {menuItem.component ? (
             menuItem.component
@@ -36,12 +46,14 @@ const useLandingPageGeneration = (
       );
 
       landingItemTemp.push(landingItemInternal);
+      menuItemsTemp.push(menuItemInternal);
     }
 
+    setMenuItems(menuItemsTemp);
     setLandingItems(landingItemTemp);
   }, []);
 
-  return landingItems;
+  return { navigableArray: landingItems, menuItemArray: menuItems };
 };
 
 export default useLandingPageGeneration;
