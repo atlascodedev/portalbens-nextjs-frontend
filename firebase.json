@@ -1,0 +1,9 @@
+{
+  "hosting": [
+    {
+      "public": "./.next",
+      "target": "app",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+    }
+  ]
+}
