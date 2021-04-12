@@ -1,10 +1,6 @@
 import { SvgIcon } from "@material-ui/core";
 import { Menu } from "@material-ui/icons";
-import React, {
-  FunctionComponent,
-  ReactComponentElement,
-  SVGProps,
-} from "react";
+import React from "react";
 import styled from "styled-components";
 
 const NavbarMainRoot = styled.div`
@@ -87,16 +83,17 @@ const NavbarMainDrawerButtonContainer = styled.div`
 
 interface NavbarMainLayoutProps {
   logo: string;
+  openDrawer: (open: boolean) => void;
 }
 
-const NavbarMainLayout = ({ logo }: NavbarMainLayoutProps) => {
+const NavbarMainLayout = ({ logo, openDrawer }: NavbarMainLayoutProps) => {
   return (
     <NavbarMainRoot>
       <NavbarMainInnerContainer>
         <NavbarMainLogoContainer>
-          <NavbarMainLogo src={logo} />
+          <NavbarMainLogo src={logo} alt="Portal Bens - Logotipo" />
         </NavbarMainLogoContainer>
-        <NavbarMainDrawerButtonContainer>
+        <NavbarMainDrawerButtonContainer onClick={() => openDrawer(true)}>
           <SvgIcon component={Menu} />
         </NavbarMainDrawerButtonContainer>
         <NavbarMainItemContainer>
