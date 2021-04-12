@@ -7,12 +7,13 @@ import { MenuItem } from "../../../../../@types";
 const NavbarMainRoot = styled.div`
   width: 100%;
   height: 70px;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.55);
   mix-blend-mode: normal;
   backdrop-filter: blur(40px);
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 200;
 
   @media (min-width: 1024px) {
     height: 110px;

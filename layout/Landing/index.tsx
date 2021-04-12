@@ -12,9 +12,7 @@ const LandingPageLayout = ({ children, menu }: Props) => {
   return (
     <React.Fragment>
       <Navbar menu={menu} logo={"/images/portalbens-logo.svg"} />
-      <div style={{ backgroundColor: "#083617", height: "100vh" }}>
-        {children}
-      </div>
+      {children}
     </React.Fragment>
   );
 };

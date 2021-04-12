@@ -2,7 +2,7 @@ import React from "react";
 
 export interface MenuItem {
   label: string;
-  ref: React.RefObject<HTMLDivElement>;
+  ref: React.RefObject<HTMLDivElement> | null;
   hidden?: boolean;
 }
 

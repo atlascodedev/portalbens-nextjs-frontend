@@ -1,5 +1,6 @@
 import Head from "next/head";
 import React from "react";
+import Hero from "../components/LandingPage/Hero/Main";
 import useLandingPageGeneration from "../hooks/useLandingPageGeneration";
 import LandingPageLayout from "../layout/Landing";
 
@@ -11,9 +12,9 @@ function Home({}: Props) {
 
   const { navigableArray, menuItemArray } = useLandingPageGeneration([
     {
-      label: "Teste",
-      component: <div> hello there</div>,
-      ref: testRef,
+      label: "Hero",
+      component: <Hero />,
+      ref: null,
       hidden: true,
     },
   ]);
