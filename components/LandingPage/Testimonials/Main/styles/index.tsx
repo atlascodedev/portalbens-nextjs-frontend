@@ -4,11 +4,11 @@ import EtusBar from "../../../../Util/EtusBar";
 const TestimonialsRoot = styled.div`
   width: 100%;
   height: 100%;
-  background-color: #fff;
+  background-color: #f5f5f5;
   padding-top: 5%;
   padding-bottom: 5%;
-  padding-left: 6%;
-  padding-right: 6%;
+  padding-left: 3%;
+  padding-right: 3%;
 `;
 
 const TestimonialsInnerContainer = styled.div`
@@ -33,11 +33,17 @@ const TestimonialsTitleContainer = styled.div`
   }
 `;
 
-const TestimonialsCardContainer = styled.div``;
+const TestimonialsCardContainer = styled.div`
+  width: 100%;
+`;
 
-interface TestimonialsLayoutContainerProps {}
+interface TestimonialsLayoutContainerProps {
+  children: React.ReactNode;
+}
 
-const TestimonialsLayoutContainer = ({}: TestimonialsLayoutContainerProps) => {
+const TestimonialsLayoutContainer = ({
+  children,
+}: TestimonialsLayoutContainerProps) => {
   return (
     <TestimonialsRoot>
       <TestimonialsInnerContainer>
@@ -45,7 +51,7 @@ const TestimonialsLayoutContainer = ({}: TestimonialsLayoutContainerProps) => {
           <div>Depoimentos dos nossos contemplados</div>
           <EtusBar width={"200px"} />
         </TestimonialsTitleContainer>
-        <TestimonialsCardContainer></TestimonialsCardContainer>
+        <TestimonialsCardContainer>{children}</TestimonialsCardContainer>
       </TestimonialsInnerContainer>
     </TestimonialsRoot>
   );

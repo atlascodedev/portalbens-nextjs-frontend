@@ -5,6 +5,13 @@ import { ThemeProvider } from "@material-ui/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "../theme";
 import "../styles/globals.css";
+require("swiper/swiper.min.css");
+require("swiper/components/navigation/navigation.min.css");
+require("swiper/components/pagination/pagination.min.css");
+require("swiper/components/scrollbar/scrollbar.min.css");
+require("swiper/components/effect-fade/effect-fade.min.css");
+require("swiper/components/scrollbar/scrollbar.min.css");
+require("swiper/components/lazy/lazy.min.css");
 
 class MyApp extends App {
   componentDidMount() {
