@@ -1,5 +1,6 @@
 import Head from "next/head";
 import React from "react";
+import DefenseSection from "../components/LandingPage/DefenseSection/Main";
 import Hero from "../components/LandingPage/Hero/Main";
 import useLandingPageGeneration from "../hooks/useLandingPageGeneration";
 import LandingPageLayout from "../layout/Landing";
@@ -14,6 +15,12 @@ function Home({}: Props) {
     {
       label: "Hero",
       component: <Hero />,
+      ref: null,
+      hidden: true,
+    },
+    {
+      label: "defense",
+      component: <DefenseSection />,
       ref: null,
       hidden: true,
     },
