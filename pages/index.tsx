@@ -4,6 +4,7 @@ import AboutUs from "../components/LandingPage/AboutUs/Main";
 import DefenseSection from "../components/LandingPage/DefenseSection/Main";
 import Hero from "../components/LandingPage/Hero/Main";
 import ProductIntro from "../components/LandingPage/ProductIntro/Main";
+import Testimonials from "../components/LandingPage/Testimonials/Main";
 import useLandingPageGeneration from "../hooks/useLandingPageGeneration";
 import LandingPageLayout from "../layout/Landing";
 
@@ -34,6 +35,13 @@ function Home({}: Props) {
     {
       label: "Product intro",
       component: <ProductIntro />,
+      ref: null,
+      hidden: true,
+    },
+
+    {
+      label: "Depoimentos",
+      component: <Testimonials />,
       ref: null,
       hidden: true,
     },

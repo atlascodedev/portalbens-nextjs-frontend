@@ -4,6 +4,7 @@ import EtusBar from "../../../../Util/EtusBar";
 const ProductIntroRoot = styled.div`
   background-color: #f5f5f5;
   width: 100%;
+  padding-bottom: 7%;
 `;
 
 const ProductIntroInnerContainer = styled.div`
@@ -19,6 +20,8 @@ const ProductIntroInnerContainer = styled.div`
 `;
 
 const ProductIntroPictureContainer = styled.div`
+  position: relative;
+
   @media (min-width: 1024px) {
     max-width: 55%;
     order: 1;
@@ -48,9 +51,11 @@ const ProductIntroTextContainer = styled.div`
 
 const ProductIntroTextTitle = styled.div`
   font-size: 30px;
+  padding-top: 5%;
 
   @media (min-width: 1024px) {
     font-size: 35px;
+    padding-top: 0px;
   }
 `;
 
@@ -62,6 +67,22 @@ const ProductIntroTextAux = styled.div`
   @media (min-width: 1024px) {
     font-size: 20px;
     padding-top: 0px;
+  }
+`;
+
+const ProductInfoDetailOne = styled.img`
+  width: 40px;
+  height: 155px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 50;
+  transform: translate(-80px, -35px);
+
+  display: none;
+
+  @media (min-width: 1024px) {
+    display: block;
   }
 `;
 
@@ -77,6 +98,7 @@ const ProuductIntroLayoutContainer = ({
       <ProductIntroInnerContainer>
         <ProductIntroPictureContainer>
           <ProductIntroPicture src={imageURL} />
+          <ProductInfoDetailOne src={"/images/detail-3.svg"} />
         </ProductIntroPictureContainer>
         <ProductIntroTextContainer>
           <ProductIntroTextTitle>
