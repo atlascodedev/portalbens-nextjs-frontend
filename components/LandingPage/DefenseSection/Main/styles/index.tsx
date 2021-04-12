@@ -19,7 +19,7 @@ const DefenseSectionInnerContainer = styled.div`
   width: 100%;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
 
   @media (min-width: 1024px) {
     flex-direction: row;

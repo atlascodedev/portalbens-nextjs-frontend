@@ -84,6 +84,11 @@ const HeroLargeTextAux = styled.div`
 const HeroLargeImage = styled.img`
   height: auto;
   width: 100%;
+
+  @media (min-width: 1600px) {
+    height: 110%;
+    width: 100%;
+  }
 `;
 
 interface HeroLayoutProps {
