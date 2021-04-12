@@ -52,9 +52,13 @@ const HeroInnerMobileTextAux = styled.div`
 
 const HeroInnerContainerLargeDevices = styled.div`
   position: relative;
-  display: grid;
   grid-template-columns: 50% 50%;
   height: 100%;
+  display: none;
+
+  @media (min-width: 768px) {
+    display: grid;
+  }
 `;
 
 const HeroLargeTextContainer = styled.div`
@@ -80,7 +84,6 @@ const HeroLargeTextAux = styled.div`
 const HeroLargeImage = styled.img`
   height: 850px;
   width: 685px;
-
 `;
 
 interface HeroLayoutProps {
