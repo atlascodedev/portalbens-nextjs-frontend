@@ -13,3 +13,16 @@ export interface LandingGenerationItem extends MenuItem {
 export interface NavigableComponent {
   navigableElement: JSX.Element | null;
 }
+
+export interface BlogPost {
+  blogTitle: string;
+  blogDate: string;
+  blogFeaturedImage: string;
+  html: string;
+  blogURL: string;
+  readingTime: string;
+}
+
+export type BlogPostList = {
+  blogPosts: Array<BlogPost>;
+};

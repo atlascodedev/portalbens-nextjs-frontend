@@ -7,6 +7,8 @@ const TestimonialsRoot = styled.div`
   background-color: #fff;
   padding-top: 5%;
   padding-bottom: 5%;
+  padding-left: 6%;
+  padding-right: 6%;
 `;
 
 const TestimonialsInnerContainer = styled.div`
@@ -23,10 +25,11 @@ const TestimonialsTitleContainer = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 
   @media (min-width: 1024px) {
     font-size: 35px;
+    align-items: center;
   }
 `;
 
