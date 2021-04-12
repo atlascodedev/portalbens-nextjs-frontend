@@ -1,5 +1,6 @@
 import Head from "next/head";
 import React from "react";
+import AboutUs from "../components/LandingPage/AboutUs/Main";
 import DefenseSection from "../components/LandingPage/DefenseSection/Main";
 import Hero from "../components/LandingPage/Hero/Main";
 import useLandingPageGeneration from "../hooks/useLandingPageGeneration";
@@ -8,8 +9,7 @@ import LandingPageLayout from "../layout/Landing";
 interface Props {}
 
 function Home({}: Props) {
-  const topRef = React.useRef<HTMLDivElement>(null);
-  const testRef = React.useRef<HTMLDivElement>(null);
+  const aboutUsRef = React.useRef<HTMLDivElement>(null);
 
   const { navigableArray, menuItemArray } = useLandingPageGeneration([
     {
@@ -23,6 +23,12 @@ function Home({}: Props) {
       component: <DefenseSection />,
       ref: null,
       hidden: true,
+    },
+
+    {
+      label: "Sobre nós",
+      component: <AboutUs />,
+      ref: aboutUsRef,
     },
   ]);
 
