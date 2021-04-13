@@ -8,6 +8,7 @@ import DefenseSection from "../components/LandingPage/DefenseSection/Main";
 import Hero from "../components/LandingPage/Hero/Main";
 import Partners from "../components/LandingPage/Partners/Main";
 import ProductIntro from "../components/LandingPage/ProductIntro/Main";
+import ProductSection from "../components/LandingPage/ProductSection/Main";
 import Testimonials from "../components/LandingPage/Testimonials/Main";
 import useLandingPageGeneration from "../hooks/useLandingPageGeneration";
 import LandingPageLayout from "../layout/Landing";
@@ -18,6 +19,7 @@ function Home({}: Props) {
   const aboutUsRef = React.useRef<HTMLDivElement>(null);
   const contactRef = React.useRef<HTMLDivElement>(null);
   const blogRef = React.useRef<HTMLDivElement>(null);
+  const productSection = React.useRef<HTMLDivElement>(null);
 
   const mockBlogData: BlogPost[] = [
     {
@@ -94,6 +96,13 @@ function Home({}: Props) {
       component: <ProductIntro />,
       ref: null,
       hidden: true,
+    },
+
+    {
+      label: "Nossos produtos",
+      component: <ProductSection />,
+      ref: productSection,
+      hidden: false,
     },
 
     {
