@@ -3,6 +3,7 @@ import { Menu } from "@material-ui/icons";
 import React from "react";
 import styled from "styled-components";
 import { MenuItem } from "../../../../../@types";
+import scrollIntoView from "../../../../../helper/scrollIntoView";
 
 const NavbarMainRoot = styled.div`
   width: 100%;
@@ -107,7 +108,11 @@ const NavbarMainLayout = ({
           {menu.map((value, index) => {
             if (!value.hidden) {
               return (
-                <NavbarMainItem key={index} ref={value.ref}>
+                <NavbarMainItem
+                  onClick={() => scrollIntoView(value.label, value.ref)}
+                  key={index}
+                  ref={value.ref}
+                >
                   {value.label}
                 </NavbarMainItem>
               );
