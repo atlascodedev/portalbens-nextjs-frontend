@@ -1,6 +1,8 @@
 import Head from "next/head";
 import React from "react";
+import { BlogPost } from "../@types";
 import AboutUs from "../components/LandingPage/AboutUs/Main";
+import Posts from "../components/LandingPage/BlogList/Main";
 import Contact from "../components/LandingPage/Contact/Main";
 import DefenseSection from "../components/LandingPage/DefenseSection/Main";
 import Hero from "../components/LandingPage/Hero/Main";
@@ -15,6 +17,58 @@ interface Props {}
 function Home({}: Props) {
   const aboutUsRef = React.useRef<HTMLDivElement>(null);
   const contactRef = React.useRef<HTMLDivElement>(null);
+  const blogRef = React.useRef<HTMLDivElement>(null);
+
+  const mockBlogData: BlogPost[] = [
+    {
+      blogDate: "25/02/1995",
+      blogFeaturedImage: "http://via.placeholder.com/700",
+      blogTitle: "Blog post 1",
+      blogURL: "http://atlascode.dev",
+      html: "<div>Hello </div>",
+      readingTime: "10",
+    },
+    {
+      blogDate: "25/02/1995",
+      blogFeaturedImage: "http://via.placeholder.com/700",
+      blogTitle: "Blog post 2",
+      blogURL: "http://atlascode.dev",
+      html: "<div>Hello </div>",
+      readingTime: "10",
+    },
+    {
+      blogDate: "25/02/1995",
+      blogFeaturedImage: "http://via.placeholder.com/700",
+      blogTitle: "Blog post 3",
+      blogURL: "http://atlascode.dev",
+      html: "<div>Hello </div>",
+      readingTime: "10",
+    },
+    {
+      blogDate: "25/02/1995",
+      blogFeaturedImage: "http://via.placeholder.com/700",
+      blogTitle: "Blog post 4",
+      blogURL: "http://atlascode.dev",
+      html: "<div>Hello </div>",
+      readingTime: "10",
+    },
+    {
+      blogDate: "25/02/1995",
+      blogFeaturedImage: "http://via.placeholder.com/700",
+      blogTitle: "Blog post 5",
+      blogURL: "http://atlascode.dev",
+      html: "<div>Hello </div>",
+      readingTime: "10",
+    },
+    {
+      blogDate: "25/02/1995",
+      blogFeaturedImage: "http://via.placeholder.com/700",
+      blogTitle: "Blog post 6",
+      blogURL: "http://atlascode.dev",
+      html: "<div>Hello </div>",
+      readingTime: "10",
+    },
+  ];
 
   const { navigableArray, menuItemArray } = useLandingPageGeneration([
     {
@@ -47,6 +101,12 @@ function Home({}: Props) {
       component: <Testimonials />,
       ref: null,
       hidden: true,
+    },
+    {
+      label: "Blog",
+      component: <Posts blogPosts={mockBlogData} />,
+      ref: blogRef,
+      hidden: false,
     },
 
     {

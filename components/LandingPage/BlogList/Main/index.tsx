@@ -1,7 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { Button, Fade, SvgIcon } from "@material-ui/core";
-import { AccessTime } from "@material-ui/icons";
+import { Button, Fade, SvgIcon, Tooltip } from "@material-ui/core";
+import {
+  AccessTime,
+  AccessTimeOutlined,
+  AccessTimeTwoTone,
+  Add,
+} from "@material-ui/icons";
 import Link from "next/link";
 import { BlogPost } from "../../../../@types";
 
@@ -12,8 +17,9 @@ const PostListRoot = styled.div`
 
 const PostListSectionTitle = styled.div`
   font-size: 24px;
-  font-family: ${(props) => props.theme.typography.fontFamily};
-  color: ${(props) => props.theme.palette.primary.main};
+  color: initial;
+  padding-top: 5%;
+  padding-bottom: 5%;
   font-weight: 700;
   text-align: center;
   @media (min-width: 1024px) {
@@ -40,7 +46,7 @@ const PostCardAncientRoot = styled.div`
 `;
 
 const PostCardContainer = styled.div`
-  font-family: ${(props) => props.theme.typography.fontFamily};
+  font-family: "Roboto";
 `;
 
 interface PostCardProps {
@@ -68,7 +74,7 @@ const PostCardReadTimeContainer = styled.div`
   display: flex;
   padding-bottom: 15px;
   & .MuiSvgIcon-root {
-    fill: ${(props) => props.theme.palette.primary.main};
+    fill: #da4e49;
   }
   & .timer {
     display: flex;
@@ -80,6 +86,7 @@ const PostCardReadTimeContainer = styled.div`
 
 const PostTitle = styled.div`
   color: #2a3d45;
+  font-family: "Roboto";
   font-size: 20px;
   width: 320px;
   padding-top: 15px;
@@ -106,7 +113,6 @@ const PostAuthorIconContainer = styled.div`
   padding-top: 25px;
   padding-bottom: 25px;
   transform: translateX(-5px);
-  font-family: ${(props) => props.theme.typography.fontFamily};
   .outer-circle {
     width: 60px;
     height: 60px;
@@ -114,7 +120,7 @@ const PostAuthorIconContainer = styled.div`
     border-top-right-radius: 110px;
     border-bottom-left-radius: 110px;
     border-bottom-right-radius: 110px;
-    border: ${(props) => `3px dashed ${props.theme.palette.primary.main}`};
+    border: ${(props) => `3px dashed #333`};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -130,8 +136,24 @@ const PostAuthorIconContainer = styled.div`
     align-items: center;
     & > div {
       font-weight: 700;
-      color: ${(props) => props.theme.palette.primary.main};
+      color: #da4e49;
     }
+  }
+`;
+
+const BlogShowMoreButtonContainer = styled.div`
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #da4e49;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  .MuiSvgIcon-root {
+    fill: #fff;
+    font-size: 1.85em;
   }
 `;
 
@@ -161,30 +183,30 @@ const PostCardMain = ({
           </div>
         </PostCardReadTimeContainer>
 
-        <PostCardContainer>
-          <Link href={url}>
+        <PostCardContainer style={{ cursor: "pointer" }}>
+          <Link href={"#"}>
             <PostCard img={image} />
           </Link>
         </PostCardContainer>
 
         <PostTitle>{title}</PostTitle>
 
-        <PostAuthorContainer>
+        {/* <PostAuthorContainer>
           <PostAuthorIconContainer>
             <div className="outer-circle">
               <div className="inner-circle">
-                <div>HT</div>
+                <div>PB</div>
               </div>
             </div>
           </PostAuthorIconContainer>
 
           <div className="posterData">
-            <div className="authorName">HighTech Serralheria</div>
+            <div className="authorName">Portal Bens Contemplados</div>
             <div className="postDate">
               {new Date(date).toLocaleDateString("pt-br")}
             </div>
           </div>
-        </PostAuthorContainer>
+        </PostAuthorContainer> */}
       </PostCardAncientRoot>
     </div>
   );
@@ -261,7 +283,7 @@ const Posts = ({ blogPosts = [] }: Props) => {
           >
             {postListState.length > 0 ? (
               <Fade in={true} timeout={{ exit: 750, enter: 500 }} unmountOnExit>
-                <div>
+                {/* <div>
                   <Button
                     onClick={showMorePosts}
                     color="primary"
@@ -269,7 +291,12 @@ const Posts = ({ blogPosts = [] }: Props) => {
                   >
                     Ver mais
                   </Button>
-                </div>
+                </div> */}
+                <Tooltip title={"Mostrar mais posts"}>
+                  <BlogShowMoreButtonContainer onClick={showMorePosts}>
+                    <SvgIcon component={Add} />
+                  </BlogShowMoreButtonContainer>
+                </Tooltip>
               </Fade>
             ) : null}
           </div>
