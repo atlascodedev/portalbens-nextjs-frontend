@@ -9,15 +9,50 @@ import {
 } from "@material-ui/icons";
 import Link from "next/link";
 import { BlogPost } from "../../../../@types";
+import EtusBar from "../../../Util/EtusBar";
 
 const PostListRoot = styled.div`
   padding-top: 5vh;
   padding-bottom: 5vh;
+  position: relative;
+`;
+
+const PostListDetailOne = styled.img`
+  width: 150px;
+  height: 300px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(-65px);
+
+  display: none;
+  @media (min-width: 1024px) {
+    display: block;
+  }
+`;
+
+const PostListDetailTwo = styled.img`
+  height: 150px;
+  width: 45px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(-75px, -50px);
+
+  display: none;
+  @media (min-width: 1024px) {
+    display: block;
+  }
 `;
 
 const PostListSectionTitle = styled.div`
   font-size: 24px;
   color: initial;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
   padding-top: 5%;
   padding-bottom: 5%;
   font-weight: 700;
@@ -259,7 +294,12 @@ const Posts = ({ blogPosts = [] }: Props) => {
     <div>
       {blogPosts.length > 0 ? (
         <PostListRoot>
-          <PostListSectionTitle>Últimas postagens</PostListSectionTitle>
+          <PostListDetailOne src={"/images/detail-1.svg"} />
+          <PostListDetailTwo src="/images/detail-3.svg" />
+          <PostListSectionTitle>
+            <div>Últimas postagens</div>
+            <EtusBar width={"200px"} />
+          </PostListSectionTitle>
           <PostListContainer>
             {visiblePostList.map((value, index) => {
               return (
