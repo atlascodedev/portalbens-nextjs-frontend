@@ -3,6 +3,7 @@ import React from "react";
 import AboutUs from "../components/LandingPage/AboutUs/Main";
 import DefenseSection from "../components/LandingPage/DefenseSection/Main";
 import Hero from "../components/LandingPage/Hero/Main";
+import Partners from "../components/LandingPage/Partners/Main";
 import ProductIntro from "../components/LandingPage/ProductIntro/Main";
 import Testimonials from "../components/LandingPage/Testimonials/Main";
 import useLandingPageGeneration from "../hooks/useLandingPageGeneration";
@@ -42,6 +43,13 @@ function Home({}: Props) {
     {
       label: "Depoimentos",
       component: <Testimonials />,
+      ref: null,
+      hidden: true,
+    },
+
+    {
+      label: "Parceiros",
+      component: <Partners />,
       ref: null,
       hidden: true,
     },
