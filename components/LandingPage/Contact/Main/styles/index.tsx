@@ -6,7 +6,7 @@ const ContactRoot = styled.div`
   padding-bottom: 10%;
 
   @media (min-width: 1024px) {
-    padding-bottom: 0px;
+    padding-bottom: 5%;
   }
 `;
 

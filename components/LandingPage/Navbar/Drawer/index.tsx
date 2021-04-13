@@ -52,23 +52,25 @@ const LayoutDrawer = ({ open, toggleDrawer, logo, sidebarItems }: Props) => {
           </ListItem>
 
           {sidebarItems.map((item, index: number) => {
-            return (
-              <ListItem
-                onClick={() => toggleDrawer(false)}
-                key={index}
-                style={{
-                  padding: "10px",
-                  paddingLeft: "20px",
-                  marginTop: "15px",
-                }}
-                alignItems="center"
-              >
-                <ListItemIcon>
-                  <SvgIcon component={Grade} />
-                </ListItemIcon>
-                <ListItemText>{item.label}</ListItemText>
-              </ListItem>
-            );
+            if (!item.hidden) {
+              return (
+                <ListItem
+                  onClick={() => toggleDrawer(false)}
+                  key={index}
+                  style={{
+                    padding: "10px",
+                    paddingLeft: "20px",
+                    marginTop: "15px",
+                  }}
+                  alignItems="center"
+                >
+                  <ListItemIcon>
+                    <SvgIcon component={Grade} />
+                  </ListItemIcon>
+                  <ListItemText>{item.label}</ListItemText>
+                </ListItem>
+              );
+            }
           })}
         </List>
       </SwipeableDrawer>

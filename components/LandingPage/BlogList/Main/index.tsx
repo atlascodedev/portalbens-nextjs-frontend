@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Button, Fade, SvgIcon } from "@material-ui/core";
 import { AccessTime } from "@material-ui/icons";
 import Link from "next/link";
-import { BlogPost, BlogPostList } from "../../../../@types";
+import { BlogPost } from "../../../../@types";
 
 const PostListRoot = styled.div`
   padding-top: 5vh;
@@ -190,7 +190,9 @@ const PostCardMain = ({
   );
 };
 
-interface Props extends BlogPostList {}
+interface Props {
+  blogPosts: BlogPost[];
+}
 
 const Posts = ({ blogPosts = [] }: Props) => {
   const [visiblePostList, setVisiblePostList] = React.useState<Array<BlogPost>>(
