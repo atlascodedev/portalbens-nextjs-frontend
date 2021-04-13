@@ -21,7 +21,7 @@ const Partners = ({}: Props) => {
       <Swiper
         id="swiper-partners"
         slidesPerView={"auto"}
-        noSwiping
+        loop
         autoplay
         speed={3000}
         breakpoints={{

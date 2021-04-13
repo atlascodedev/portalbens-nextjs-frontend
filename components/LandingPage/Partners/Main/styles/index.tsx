@@ -6,6 +6,7 @@ const PartnersRoot = styled.div`
   background-color: #f5f5f5;
   padding-top: 5%;
   padding-bottom: 5%;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.35);
 `;
 
 const PartnersInnerContainer = styled.div`
@@ -72,7 +73,7 @@ const PartnersLayoutContainer = ({
       <PartnersInnerContainer>
         <PartnersTitleContainer>
           <div>Nossos parceiros</div>
-          <EtusBar />
+          <EtusBar width={"200px"} />
         </PartnersTitleContainer>
       </PartnersInnerContainer>
       <PartnersCardContainer>{children}</PartnersCardContainer>
