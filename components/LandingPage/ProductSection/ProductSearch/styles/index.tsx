@@ -38,7 +38,8 @@ const ProductSearchInnerContainer = styled.div`
   grid-template-columns: 40% 40% 20%;
   height: 100%;
 
-  .title {
+  @media (min-width: 1024px) {
+    grid-template-columns: 45% 35% 20%;
   }
 `;
 
@@ -69,6 +70,14 @@ const ProductSearchTypeSelectContainer = styled.div`
   .select {
     .MuiSelect-root {
       min-width: 50px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .select {
+      .MuiSelect-root {
+        min-width: 125px;
+      }
     }
   }
 `;

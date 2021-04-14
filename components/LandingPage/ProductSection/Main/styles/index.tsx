@@ -16,6 +16,12 @@ const ProductSectionDetail = styled.img`
   top: 0;
   left: 5%;
   z-index: 50;
+
+  display: none;
+
+  @media (min-width: 1024px) {
+    display: block;
+  }
 `;
 
 const ProductSectionInnerContainer = styled.div`

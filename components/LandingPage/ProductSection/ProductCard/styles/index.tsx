@@ -66,11 +66,11 @@ const ProductCardHeaderInnerLabel = styled.div`
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  width: calc(100%);
+  width: 100%;
 `;
 
 const ProductCardHeaderInnerSpecialDealIconContainer = styled.div`
-  width: 33%;
+  width: 100%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -158,7 +158,7 @@ const ProductCardLayout = ({}: ProductCardLayoutProps) => {
           <ProductCardHeaderInnerContainer>
             <div
               style={{
-                width: "33%",
+                width: "100%",
               }}
             >
               <ProductCardHeaderInnerIconContainer>
