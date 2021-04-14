@@ -11,10 +11,17 @@ import React from "react";
 import ContactFormLayout from "./styles";
 import * as Yup from "yup";
 import NumberFormat from "react-number-format";
+import FeedbackDialog from "../../../Util/FeedbackDialog";
 
 interface Props {}
 
 const ContactForm = (props: Props) => {
+  const [feedbackOpen, setFeedbackOpen] = React.useState<boolean>(true);
+
+  const toggleFeedbackDialog = (open: boolean): void => {
+    setFeedbackOpen(open);
+  };
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -151,6 +158,16 @@ const ContactForm = (props: Props) => {
           </span>
         </Tooltip>
       </div>
+      <FeedbackDialog
+        message={
+          "Sua mensagem foi enviada com sucesso, logo entraremos em contato."
+        }
+        severity="success"
+        title={"Formulário enviado com sucesso"}
+        closeFn={() => toggleFeedbackDialog(false)}
+        onClose={() => toggleFeedbackDialog(false)}
+        open={feedbackOpen}
+      />
     </ContactFormLayout>
   );
 };
