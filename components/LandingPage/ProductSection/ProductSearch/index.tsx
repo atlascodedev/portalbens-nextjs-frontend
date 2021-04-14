@@ -1,9 +1,10 @@
 import React from "react";
+import ProductSearchLayout from "./styles";
 
 interface Props {}
 
 const ProductSearch = (props: Props) => {
-  return <div>this is the product search section</div>;
+  return <ProductSearchLayout />;
 };
 
 export default ProductSearch;

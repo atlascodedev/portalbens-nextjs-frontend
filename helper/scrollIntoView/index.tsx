@@ -6,7 +6,7 @@ import converToSlug from "../convertToSlug";
 const scrollIntoView = (
   menuName: string,
   ref: React.RefObject<HTMLDivElement | HTMLElement> | null,
-  callback?: (...args: any[]) => void
+  callback?: ((...args: any[]) => void) | any
 ) => {
   const isChrome: boolean = global.window.navigator.userAgent.includes(
     "Chrome"

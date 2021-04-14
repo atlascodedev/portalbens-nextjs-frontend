@@ -11,6 +11,7 @@ import React from "react";
 import Link from "next/link";
 import { MenuItem } from "../../../../@types";
 import { Grade } from "@material-ui/icons";
+import scrollIntoView from "../../../../helper/scrollIntoView";
 
 interface Props {
   open: boolean;
@@ -55,7 +56,9 @@ const LayoutDrawer = ({ open, toggleDrawer, logo, sidebarItems }: Props) => {
             if (!item.hidden) {
               return (
                 <ListItem
-                  onClick={() => toggleDrawer(false)}
+                  onClick={() =>
+                    scrollIntoView(item.label, item.ref, toggleDrawer(false))
+                  }
                   key={index}
                   style={{
                     padding: "10px",

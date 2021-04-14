@@ -3,6 +3,7 @@ import { Menu } from "@material-ui/icons";
 import React from "react";
 import styled from "styled-components";
 import { MenuItem } from "../../../../../@types";
+import returnHome from "../../../../../helper/returnHome";
 import scrollIntoView from "../../../../../helper/scrollIntoView";
 
 const NavbarMainRoot = styled.div`
@@ -35,6 +36,7 @@ const NavbarMainLogoContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-right: 15px;
+  cursor: pointer;
 
   svg {
     height: 100%;
@@ -98,7 +100,7 @@ const NavbarMainLayout = ({
   return (
     <NavbarMainRoot>
       <NavbarMainInnerContainer>
-        <NavbarMainLogoContainer>
+        <NavbarMainLogoContainer onClick={returnHome}>
           <NavbarMainLogo src={logo} alt="Portal Bens - Logotipo" />
         </NavbarMainLogoContainer>
         <NavbarMainDrawerButtonContainer onClick={() => openDrawer(true)}>
