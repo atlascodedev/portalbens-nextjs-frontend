@@ -1,5 +1,6 @@
 import {
   FormControl,
+  Hidden,
   InputLabel,
   MenuItem,
   Select,
@@ -7,8 +8,12 @@ import {
   TextField,
   Tooltip,
 } from "@material-ui/core";
-import { Search } from "@material-ui/icons";
+import { Info, Search } from "@material-ui/icons";
+import React from "react";
+import NumberFormat from "react-number-format";
 import styled from "styled-components";
+import { ProductSearchProps } from "..";
+import { ProductType } from "../../../../../@types";
 
 const ProductSearchRoot = styled.div`
   width: 323.84px;
@@ -52,7 +57,15 @@ const ProductSearchPriceRangeContainer = styled.div`
   padding: 10px;
 
   .title {
+    display: flex;
     text-align: center;
+
+    .MuiSvgIcon-root {
+      margin-left: 10px;
+      font-size: 1.35rem;
+      cursor: pointer;
+      fill: #0c6936;
+    }
   }
 `;
 
@@ -102,22 +115,52 @@ const ProductSearchButtonContainer = styled.div`
   }
 `;
 
-interface ProductSearchLayoutProps {}
+interface ProductSearchLayoutProps extends ProductSearchProps {}
 
-const ProductSearchLayout = ({}: ProductSearchLayoutProps) => {
+const ProductSearchLayout = ({
+  maxValue,
+  productType,
+  setMaxValue,
+  setProduct,
+  filterProduct,
+}: ProductSearchLayoutProps) => {
   return (
     <ProductSearchRoot>
       <ProductSearchInnerContainer>
         <ProductSearchPriceRangeContainer>
-          <div className="title">Quanto você deseja investir?</div>
+          <div className="title">
+            <div>Quanto você deseja investir?</div>
+            <Hidden mdDown>
+              <Tooltip title={"Valor referente ao valor de entrada"}>
+                <SvgIcon component={Info} />
+              </Tooltip>
+            </Hidden>
+          </div>
           <div className="priceField">
-            <TextField placeholder="Até R$6000" />
+            <NumberFormat
+              customInput={TextField}
+              value={maxValue}
+              //   decimalScale={2}
+              allowNegative={false}
+              thousandSeparator={","}
+              prefix={"Até R$"}
+              //   fixedDecimalScale={true}
+              placeholder={"Até R$ 6000"}
+              onValueChange={({ floatValue, formattedValue, value }) =>
+                setMaxValue(floatValue)
+              }
+            />
           </div>
         </ProductSearchPriceRangeContainer>
         <ProductSearchTypeSelectContainer>
           <div className="title">O que você procura?</div>
           <div className="select">
-            <TextField defaultValue="vehicle" select>
+            <TextField
+              //   defaultValue="vehicle"
+              onChange={(e) => setProduct(e.target.value as ProductType)}
+              value={productType}
+              select
+            >
               <MenuItem value={"vehicle"}>Veículos</MenuItem>
               <MenuItem value={"housing"}>Imóveis</MenuItem>
             </TextField>
@@ -128,7 +171,9 @@ const ProductSearchLayout = ({}: ProductSearchLayoutProps) => {
             "Ajuste os parâmetros de busca e então clique aqui para pesquisar por uma carta."
           }
         >
-          <ProductSearchButtonContainer>
+          <ProductSearchButtonContainer
+            onClick={() => filterProduct(maxValue, productType)}
+          >
             <SvgIcon component={Search} />
           </ProductSearchButtonContainer>
         </Tooltip>

@@ -185,7 +185,7 @@ const ProductCardLayout = ({
                 title={
                   <React.Fragment>
                     <div style={{ display: "flex", flexDirection: "column" }}>
-                      <div style={{ fontWeight: "bold" }}>
+                      <div style={{ fontWeight: "bold", fontStyle: "italic" }}>
                         Alerta para grande oferta:
                       </div>
                       <div>Este pode ser um ótimo negócio!</div>
