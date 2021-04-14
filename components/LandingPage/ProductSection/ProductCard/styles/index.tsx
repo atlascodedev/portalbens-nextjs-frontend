@@ -217,7 +217,13 @@ const ProductCardLayout = ({
             </div>
             <div className="infoContainer">
               <div className="title">Entrada</div>
-              <div className="info">{entradaCredito}</div>
+              <div className="info">
+                {formatToCurrency(
+                  "pt-BR",
+                  "BRL",
+                  parseInt(entradaCredito as string)
+                )}
+              </div>
             </div>
             <div className="infoContainer">
               <div className="title">Saldo</div>

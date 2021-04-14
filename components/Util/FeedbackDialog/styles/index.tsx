@@ -57,6 +57,13 @@ const FeedbackDialogSeverityContainer = styled.div<FeedBackSeverityProps>`
     width: 100px;
     fill: #fff;
   }
+
+  @media (min-width: 1024px) {
+    .MuiSvgIcon-root {
+      height: 160px;
+      width: 160px;
+    }
+  }
 `;
 
 const FeedbackDialogContentContainer = styled.div`

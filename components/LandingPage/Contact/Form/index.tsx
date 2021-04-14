@@ -12,11 +12,25 @@ import ContactFormLayout from "./styles";
 import * as Yup from "yup";
 import NumberFormat from "react-number-format";
 import FeedbackDialog from "../../../Util/FeedbackDialog";
+import axios from "axios";
+import { FeedbackSeverity } from "../../../Util/FeedbackDialog/styles";
 
 interface Props {}
 
+interface FeedbackState {
+  severity: FeedbackSeverity;
+  message: string;
+  title: string;
+}
+
 const ContactForm = (props: Props) => {
-  const [feedbackOpen, setFeedbackOpen] = React.useState<boolean>(true);
+  const [feedbackOpen, setFeedbackOpen] = React.useState<boolean>(false);
+  const [feedbackState, setFeedbackState] = React.useState<FeedbackState>({
+    severity: "success",
+    message:
+      "Sua mensagem foi enviada com sucesso, em breve entraremos em contato.",
+    title: "Mensagem enviada com sucesso!",
+  });
 
   const toggleFeedbackDialog = (open: boolean): void => {
     setFeedbackOpen(open);
@@ -40,7 +54,44 @@ const ContactForm = (props: Props) => {
       message: Yup.string().required("Este campo é obrigatório"),
     }),
 
-    onSubmit: (values, actions) => console.log("ass"),
+    onSubmit: (values, actions) => {
+      actions.setSubmitting(true);
+
+      axios
+        .post(
+          "https://us-central1-atlascodedev-landing.cloudfunctions.net/api/sendMail/portalbens",
+          {
+            name: values.name,
+            email: values.email,
+            phone: values.phone,
+            message: values.message,
+          }
+        )
+        .then((result) => {
+          console.log(result);
+          toggleFeedbackDialog(true);
+          setFeedbackState({
+            severity: "success",
+            message:
+              "Sua mensagem foi enviada com sucesso, em breve entraremos em contato.",
+            title: "Mensagem enviada com sucesso!",
+          });
+          actions.setSubmitting(false);
+          actions.resetForm();
+        })
+        .catch((error) => {
+          toggleFeedbackDialog(true);
+          console.log(error);
+          setFeedbackState({
+            severity: "error",
+            message:
+              "Ocorreu um erro ao tentar enviar a sua mensagem, por favor, tente novamente ou contate-nos via WhatsApp",
+            title: "Erro ao enviar formulário",
+          });
+          actions.setSubmitting(false);
+          actions.resetForm();
+        });
+    },
   });
 
   return (
@@ -150,7 +201,7 @@ const ContactForm = (props: Props) => {
               color="primary"
               size="large"
               variant="contained"
-              onClick={() => console.log(formik.dirty)}
+              onClick={formik.submitForm}
               disabled={!formik.isValid}
             >
               Enviar!
@@ -159,11 +210,9 @@ const ContactForm = (props: Props) => {
         </Tooltip>
       </div>
       <FeedbackDialog
-        message={
-          "Sua mensagem foi enviada com sucesso, logo entraremos em contato."
-        }
-        severity="success"
-        title={"Formulário enviado com sucesso"}
+        message={feedbackState.message}
+        severity={feedbackState.severity}
+        title={feedbackState.title}
         closeFn={() => toggleFeedbackDialog(false)}
         onClose={() => toggleFeedbackDialog(false)}
         open={feedbackOpen}
