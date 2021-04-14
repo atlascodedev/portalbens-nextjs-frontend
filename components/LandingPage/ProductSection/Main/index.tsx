@@ -9,7 +9,7 @@ import SwiperCore, {
   Autoplay,
 } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import ProductSearch from "../ProductSearch";
+import ProductSearch, { ProductSearchProps } from "../ProductSearch";
 import { Product, ProductType } from "../../../../@types";
 import { Fade } from "@material-ui/core";
 
@@ -20,13 +20,9 @@ interface Props {
 }
 
 const ProductSection = ({ products = [] }: Props) => {
-  const mockList: any[] = [1, 1, 1, 1, 1, 1, 1, 1, 1];
-
   const [maxValue, setMaxValue] = React.useState<string | number | null>("");
   const [productType, setProductType] = React.useState<ProductType>("vehicle");
   const [visibleProducts, setVisibleProducts] = React.useState<Product[]>([]);
-
-  console.log(visibleProducts);
 
   React.useEffect(() => {
     setVisibleProducts(products);
@@ -76,7 +72,7 @@ const ProductSection = ({ products = [] }: Props) => {
         <Swiper
           id="swiper-products"
           slidesPerView={"auto"}
-          centeredSlides={Boolean(mockList.length > 3 ? false : true)}
+          centeredSlides={Boolean(visibleProducts.length > 3 ? false : true)}
           pagination={{ clickable: true, dynamicBullets: true }}
           draggable
           breakpoints={{

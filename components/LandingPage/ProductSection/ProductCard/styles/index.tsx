@@ -12,6 +12,7 @@ import styled from "styled-components";
 import React from "react";
 import { Product } from "../../../../../@types";
 import _ from "lodash";
+import formatToCurrency from "../../../../../helper/formatToCurrency";
 
 const ProductCardRoot = styled.div`
   width: 295px;
@@ -206,7 +207,13 @@ const ProductCardLayout = ({
           <ProductCardContentInfo>
             <div className="infoContainer">
               <div className="title">Valor do crédito</div>
-              <div className="info">{valorCredito}</div>
+              <div className="info">
+                {formatToCurrency(
+                  "pt-BR",
+                  "BRL",
+                  parseInt(valorCredito as string)
+                )}
+              </div>
             </div>
             <div className="infoContainer">
               <div className="title">Entrada</div>

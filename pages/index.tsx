@@ -1,6 +1,6 @@
 import Head from "next/head";
 import React from "react";
-import { BlogPost, Product } from "../@types";
+import { BlogPost, Product, ProductType } from "../@types";
 import AboutUs from "../components/LandingPage/AboutUs/Main";
 import Posts from "../components/LandingPage/BlogList/Main";
 import Contact from "../components/LandingPage/Contact/Main";
