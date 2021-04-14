@@ -3,12 +3,15 @@ import {
   Commute,
   DriveEta,
   Email,
+  Home,
   Mail,
   Star,
   WhatsApp,
 } from "@material-ui/icons";
 import styled from "styled-components";
 import React from "react";
+import { Product } from "../../../../../@types";
+import _ from "lodash";
 
 const ProductCardRoot = styled.div`
   width: 295px;
@@ -148,9 +151,16 @@ const CircleAroundIcon = styled.div`
   }
 `;
 
-interface ProductCardLayoutProps {}
+interface ProductCardLayoutProps extends Product {}
 
-const ProductCardLayout = ({}: ProductCardLayoutProps) => {
+const ProductCardLayout = ({
+  admin,
+  entradaCredito,
+  featured,
+  saldoCredito,
+  type,
+  valorCredito,
+}: ProductCardLayoutProps) => {
   return (
     <ProductCardRoot>
       <ProductCardInnerContainer>
@@ -162,11 +172,13 @@ const ProductCardLayout = ({}: ProductCardLayoutProps) => {
               }}
             >
               <ProductCardHeaderInnerIconContainer>
-                <SvgIcon component={DriveEta}></SvgIcon>
+                <SvgIcon
+                  component={type == "vehicle" ? DriveEta : Home}
+                ></SvgIcon>
               </ProductCardHeaderInnerIconContainer>
             </div>
             <ProductCardHeaderInnerLabel>
-              {"Veículo"}
+              {type == "vehicle" ? "Veículo" : "Imóvel"}
             </ProductCardHeaderInnerLabel>
             <ProductCardHeaderInnerSpecialDealIconContainer>
               <Tooltip
@@ -181,7 +193,9 @@ const ProductCardLayout = ({}: ProductCardLayoutProps) => {
                   </React.Fragment>
                 }
               >
-                <ProductSpecialDealIconWrapper>
+                <ProductSpecialDealIconWrapper
+                  style={{ display: featured ? "flex" : "none" }}
+                >
                   <SvgIcon component={Star} />
                 </ProductSpecialDealIconWrapper>
               </Tooltip>
@@ -192,19 +206,19 @@ const ProductCardLayout = ({}: ProductCardLayoutProps) => {
           <ProductCardContentInfo>
             <div className="infoContainer">
               <div className="title">Valor do crédito</div>
-              <div className="info">R$ 16.234,00</div>
+              <div className="info">{valorCredito}</div>
             </div>
             <div className="infoContainer">
               <div className="title">Entrada</div>
-              <div className="info">R$ 3.642,00</div>
+              <div className="info">{entradaCredito}</div>
             </div>
             <div className="infoContainer">
               <div className="title">Saldo</div>
-              <div className="info">12x de R$ 651,00</div>
+              <div className="info">{saldoCredito}</div>
             </div>
             <div className="infoContainer last">
               <div className="title">Administradora</div>
-              <div className="info">Gazin</div>
+              <div className="info">{_.capitalize(admin)}</div>
             </div>
           </ProductCardContentInfo>
           <ProductCardContentContact>

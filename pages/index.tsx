@@ -1,6 +1,6 @@
 import Head from "next/head";
 import React from "react";
-import { BlogPost } from "../@types";
+import { BlogPost, Product } from "../@types";
 import AboutUs from "../components/LandingPage/AboutUs/Main";
 import Posts from "../components/LandingPage/BlogList/Main";
 import Contact from "../components/LandingPage/Contact/Main";
@@ -72,6 +72,51 @@ function Home({}: Props) {
     },
   ];
 
+  const mockProductData: Product[] = [
+    {
+      admin: "Admin teste 1",
+      entradaCredito: "3500",
+      featured: true,
+      saldoCredito: "12x de R$651,00",
+      type: "housing",
+      valorCredito: "35000",
+    },
+
+    {
+      admin: "Admin teste 2",
+      entradaCredito: "4250",
+      featured: false,
+      saldoCredito: "10x de R$450,00",
+      type: "vehicle",
+      valorCredito: "60000",
+    },
+
+    {
+      admin: "Admin teste 3",
+      entradaCredito: "5000",
+      featured: false,
+      saldoCredito: "25x de R$800",
+      type: "housing",
+      valorCredito: "500000",
+    },
+    {
+      admin: "Admin teste 4",
+      entradaCredito: "52323",
+      featured: true,
+      saldoCredito: "25x de R$93232",
+      type: "housing",
+      valorCredito: "199999",
+    },
+    {
+      admin: "Admin teste 5",
+      entradaCredito: "1000000",
+      featured: false,
+      saldoCredito: "100x de R$100000",
+      type: "vehicle",
+      valorCredito: "3123213213131",
+    },
+  ];
+
   const { navigableArray, menuItemArray } = useLandingPageGeneration([
     {
       label: "Hero",
@@ -100,7 +145,7 @@ function Home({}: Props) {
 
     {
       label: "Nossos produtos",
-      component: <ProductSection />,
+      component: <ProductSection products={mockProductData} />,
       ref: productSection,
       hidden: false,
     },

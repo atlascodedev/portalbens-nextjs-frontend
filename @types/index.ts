@@ -26,3 +26,14 @@ export interface BlogPost {
 export type BlogPostList = {
   blogPosts: Array<BlogPost>;
 };
+
+export type ProductType = "vehicle" | "housing";
+
+export interface Product {
+  type: ProductType;
+  featured: boolean;
+  valorCredito: string | number;
+  entradaCredito: string | number;
+  saldoCredito: string | number;
+  admin: string;
+}

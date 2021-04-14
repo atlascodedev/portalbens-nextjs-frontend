@@ -61,6 +61,19 @@ a {
   opacity: 1 !important;
 }
 
+#swiper-products .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  transform: scale(1.75);
+}
+
+@media (min-width: 1024px) {
+  #swiper-products .swiper-pagination-bullet {
+    margin-left: 20px !important;
+    margin-right: 20px !important;
+  }
+}
+
+/* Testimonials Slider */
+
 #swiper-testimonials .swiper-slide {
   display: flex;
   justify-content: center;

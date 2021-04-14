@@ -10,12 +10,15 @@ import SwiperCore, {
 } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ProductSearch from "../ProductSearch";
+import { Product } from "../../../../@types";
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, Autoplay]);
 
-interface Props {}
+interface Props {
+  products: Product[];
+}
 
-const ProductSection = (props: Props) => {
+const ProductSection = ({ products = [] }: Props) => {
   const mockList: any[] = [1, 1, 1, 1, 1, 1, 1, 1, 1];
 
   return (
@@ -38,10 +41,17 @@ const ProductSection = (props: Props) => {
             },
           }}
         >
-          {mockList.map((value, index) => {
+          {products.map((value: Product, index: number) => {
             return (
               <SwiperSlide key={index}>
-                <ProductCard />
+                <ProductCard
+                  admin={value.admin}
+                  entradaCredito={value.entradaCredito}
+                  featured={value.featured}
+                  saldoCredito={value.saldoCredito}
+                  type={value.type}
+                  valorCredito={value.valorCredito}
+                />
               </SwiperSlide>
             );
           })}
