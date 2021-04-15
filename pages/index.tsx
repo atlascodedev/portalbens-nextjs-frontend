@@ -1,3 +1,4 @@
+import axios from "axios";
 import Head from "next/head";
 import React from "react";
 import { BlogPost, Product, ProductType } from "../@types";
@@ -15,11 +16,13 @@ import LandingPageLayout from "../layout/Landing";
 
 interface Props {}
 
-function Home({}: Props) {
+function Home(props: Props) {
   const aboutUsRef = React.useRef<HTMLDivElement>(null);
   const contactRef = React.useRef<HTMLDivElement>(null);
   const blogRef = React.useRef<HTMLDivElement>(null);
   const productSection = React.useRef<HTMLDivElement>(null);
+
+  console.log(props);
 
   const mockBlogData: BlogPost[] = [
     {
@@ -198,3 +201,33 @@ function Home({}: Props) {
 }
 
 export default Home;
+
+export const getStaticProps = async (context) => {
+  let testimonialsRequest = await axios.get(
+    "https://us-central1-portalbens-nextjs-hefesto.cloudfunctions.net/api/collections/entries/testimonials"
+  );
+  let partnersRequest = await axios.get(
+    "https://us-central1-portalbens-nextjs-hefesto.cloudfunctions.net/api/collections/entries/partners"
+  );
+  let blogRequest = await axios.get(
+    "https://us-central1-portalbens-nextjs-hefesto.cloudfunctions.net/api/collections/entries/portalBlog"
+  );
+
+  let cardsRequest = await axios.get(
+    "https://us-central1-portalbens-nextjs-hefesto.cloudfunctions.net/api/collections/entries/cartas"
+  );
+
+  const testimonaislData: any = testimonialsRequest.data;
+  const partnersData: any = partnersRequest.data;
+  const blogData: any = blogRequest.data;
+  const cardsData: any = cardsRequest.data;
+
+  return {
+    props: {
+      testimonials: testimonaislData,
+      blog: blogData,
+      partners: partnersData,
+      cards: cardsData,
+    },
+  };
+};

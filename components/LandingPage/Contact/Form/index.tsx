@@ -202,7 +202,7 @@ const ContactForm = (props: Props) => {
               size="large"
               variant="contained"
               onClick={formik.submitForm}
-              disabled={!formik.isValid}
+              disabled={!formik.isValid || formik.isSubmitting}
             >
               Enviar!
             </Button>

@@ -72,12 +72,12 @@ const ProductSection = ({ products = [] }: Props) => {
         <Swiper
           id="swiper-products"
           slidesPerView={"auto"}
-          centeredSlides={Boolean(visibleProducts.length > 3 ? false : true)}
+          centeredSlides={Boolean(visibleProducts.length > 3)}
           pagination={{ clickable: true, dynamicBullets: true }}
           draggable
           breakpoints={{
             1024: {
-              slidesPerView: 3,
+              slidesPerView: 3, 
             },
           }}
         >
