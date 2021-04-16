@@ -8,7 +8,7 @@ import {
   Add,
 } from "@material-ui/icons";
 import Link from "next/link";
-import { BlogPost } from "../../../../@types";
+import { BlogPost, BlogPostType } from "../../../../@types";
 import EtusBar from "../../../Util/EtusBar";
 
 const PostListRoot = styled.div`
@@ -192,20 +192,20 @@ const BlogShowMoreButtonContainer = styled.div`
   }
 `;
 
-interface PostCardMainProps {
-  readTime: string;
-  title: string;
-  date: string;
-  url: string;
-  image: string;
+interface PostCardMainProps extends Partial<BlogPostType> {
+  readTime?: string;
 }
 
 const PostCardMain = ({
-  date = "10 de janeiro de 2020",
-  readTime = "2",
-  title = "Placeholder post title",
-  url = "#",
-  image = "https://via.placeholder.com/150",
+  blogActive,
+  blogPost,
+  blogTitle,
+  featuredImage = {
+    imageURL: "https://via.placeholder.com/1000",
+    imageDescription: "placeholder description",
+  },
+  uuid,
+  readTime = "10",
 }: PostCardMainProps) => {
   return (
     <div>
@@ -220,42 +220,25 @@ const PostCardMain = ({
 
         <PostCardContainer style={{ cursor: "pointer" }}>
           <Link href={"#"}>
-            <PostCard img={image} />
+            <PostCard img={featuredImage.imageURL} />
           </Link>
         </PostCardContainer>
 
-        <PostTitle>{title}</PostTitle>
-
-        {/* <PostAuthorContainer>
-          <PostAuthorIconContainer>
-            <div className="outer-circle">
-              <div className="inner-circle">
-                <div>PB</div>
-              </div>
-            </div>
-          </PostAuthorIconContainer>
-
-          <div className="posterData">
-            <div className="authorName">Portal Bens Contemplados</div>
-            <div className="postDate">
-              {new Date(date).toLocaleDateString("pt-br")}
-            </div>
-          </div>
-        </PostAuthorContainer> */}
+        <PostTitle>{blogTitle}</PostTitle>
       </PostCardAncientRoot>
     </div>
   );
 };
 
 interface Props {
-  blogPosts: BlogPost[];
+  blogPosts: BlogPostType[];
 }
 
 const Posts = ({ blogPosts = [] }: Props) => {
-  const [visiblePostList, setVisiblePostList] = React.useState<Array<BlogPost>>(
-    []
-  );
-  const [postListState, setPostList] = React.useState<Array<BlogPost>>([]);
+  const [visiblePostList, setVisiblePostList] = React.useState<
+    Array<BlogPostType>
+  >([]);
+  const [postListState, setPostList] = React.useState<Array<BlogPostType>>([]);
 
   React.useEffect(() => {
     let localPostList = blogPosts;
@@ -284,15 +267,14 @@ const Posts = ({ blogPosts = [] }: Props) => {
     let current = [...postListState];
     let removeThree = current.splice(0, 3);
 
-    // console.log(current, removeThree)
-    // console.log(current, visiblePostList)
     setPostList(current);
     setVisiblePostList((prevState) => [...prevState, ...removeThree]);
   };
 
+  console.log(visiblePostList);
   return (
     <div>
-      {blogPosts.length > 0 ? (
+      {visiblePostList.length > 0 ? (
         <PostListRoot>
           <PostListDetailOne src={"/images/detail-1.svg"} />
           <PostListDetailTwo src="/images/detail-3.svg" />
@@ -306,11 +288,9 @@ const Posts = ({ blogPosts = [] }: Props) => {
                 <Fade key={index} in={true} timeout={{ enter: 750 }}>
                   <div>
                     <PostCardMain
-                      date={value.blogDate}
-                      image={value.blogFeaturedImage}
-                      readTime={value.readingTime}
-                      title={value.blogTitle}
-                      url={value.blogURL}
+                      blogActive={value.blogActive}
+                      blogTitle={value.blogTitle}
+                      featuredImage={value.featuredImage}
                     />
                   </div>
                 </Fade>
@@ -323,15 +303,6 @@ const Posts = ({ blogPosts = [] }: Props) => {
           >
             {postListState.length > 0 ? (
               <Fade in={true} timeout={{ exit: 750, enter: 500 }} unmountOnExit>
-                {/* <div>
-                  <Button
-                    onClick={showMorePosts}
-                    color="primary"
-                    variant="outlined"
-                  >
-                    Ver mais
-                  </Button>
-                </div> */}
                 <Tooltip title={"Mostrar mais posts"}>
                   <BlogShowMoreButtonContainer onClick={showMorePosts}>
                     <SvgIcon component={Add} />

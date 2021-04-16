@@ -38,6 +38,7 @@ const PartnersCardContainer = styled.div`
 
 interface PartnersCardProps {
   imageURL: string;
+  "aria-label": string;
 }
 
 const PartnersCardRoot = styled.div<PartnersCardProps>`
@@ -57,8 +58,11 @@ const PartnersCardRoot = styled.div<PartnersCardProps>`
   background-repeat: no-repeat;
 `;
 
-export const PartnersCard = ({ imageURL }: PartnersCardProps) => {
-  return <PartnersCardRoot imageURL={imageURL} />;
+export const PartnersCard = ({
+  imageURL,
+  "aria-label": alt,
+}: PartnersCardProps) => {
+  return <PartnersCardRoot aria-label={alt} imageURL={imageURL} />;
 };
 
 interface PartnersLayoutContainerProps {

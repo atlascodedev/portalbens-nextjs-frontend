@@ -7,15 +7,18 @@ import SwiperCore, {
   Autoplay,
 } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { TestimonialsType } from "../../../../@types";
 import TestimonialCard from "../TestimonialCard";
 import TestimonialCardLayoutContainer from "../TestimonialCard/styles";
 import TestimonialsLayoutContainer from "./styles";
 
-interface Props {}
+interface Props {
+  testimonials: TestimonialsType[];
+}
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, Autoplay]);
 
-const Testimonials = (props: Props) => {
+const Testimonials = ({ testimonials = [] }: Props) => {
   const numArray: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 1, 1, 1, 1, 1, 1, 1];
 
   return (
@@ -24,6 +27,7 @@ const Testimonials = (props: Props) => {
         id="swiper-testimonials"
         slideToClickedSlide={true}
         slidesPerView={"auto"}
+        centeredSlides={testimonials.length <= 3 ? true : false}
         pagination={{ clickable: true, dynamicBullets: true }}
         draggable
         breakpoints={{
@@ -32,18 +36,14 @@ const Testimonials = (props: Props) => {
           },
         }}
       >
-        {numArray.map((value, index) => {
+        {testimonials.map((value: TestimonialsType, index: number) => {
           return (
             <SwiperSlide key={index}>
               <TestimonialCard
-                imageURL={
-                  "https://firebasestorage.googleapis.com/v0/b/portalbens-nextjs-hefesto.appspot.com/o/adonis%2Fgallery%2Fgigachad.webp?alt=media"
-                }
-                title={"João Fernandez Alves"}
-                text={
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis, lectus magna fringilla urna, porttitor rhoncus dolor purus non."
-                }
-                location={"Passo Fundo/RS"}
+                imageURL={value.testimonialPicture.imageURL}
+                title={value.testimonialName}
+                text={value.testimonialText}
+                location={value.testimonialLocation}
               />
             </SwiperSlide>
           );

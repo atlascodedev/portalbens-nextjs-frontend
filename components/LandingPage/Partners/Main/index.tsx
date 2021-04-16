@@ -9,13 +9,15 @@ import SwiperCore, {
   Autoplay,
 } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { PartnerType } from "../../../../@types";
+import { Tooltip } from "@material-ui/core";
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, Autoplay]);
 
-interface Props {}
-const Partners = ({}: Props) => {
-  const mockArray: any[] = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-
+interface Props {
+  partners: PartnerType[];
+}
+const Partners = ({ partners }: Props) => {
   return (
     <PartnersLayoutContainer>
       <Swiper
@@ -26,15 +28,22 @@ const Partners = ({}: Props) => {
         speed={3000}
         breakpoints={{
           1024: {
-            slidesPerView: 4,
+            slidesPerView: partners.length >= 4 ? 4 : partners.length,
             speed: 3000,
           },
         }}
       >
-        {mockArray.map((value, index) => {
+        {partners.map((value, index) => {
           return (
             <SwiperSlide key={index}>
-              <PartnersCard imageURL={"https://via.placeholder.com/150"} />
+              <Tooltip title={value.partnerName}>
+                <div>
+                  <PartnersCard
+                    aria-label={value.partnerLogo.imageDescription}
+                    imageURL={value.partnerLogo.imageURL}
+                  />
+                </div>
+              </Tooltip>
             </SwiperSlide>
           );
         })}

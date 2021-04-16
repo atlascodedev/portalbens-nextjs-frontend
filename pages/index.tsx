@@ -1,7 +1,15 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
+import { GetStaticProps, GetStaticPropsResult } from "next";
 import Head from "next/head";
 import React from "react";
-import { BlogPost, Product, ProductType } from "../@types";
+import {
+  BlogPost,
+  BlogPostType,
+  PartnerType,
+  Product,
+  ProductType,
+  TestimonialsType,
+} from "../@types";
 import AboutUs from "../components/LandingPage/AboutUs/Main";
 import Posts from "../components/LandingPage/BlogList/Main";
 import Contact from "../components/LandingPage/Contact/Main";
@@ -14,66 +22,20 @@ import Testimonials from "../components/LandingPage/Testimonials/Main";
 import useLandingPageGeneration from "../hooks/useLandingPageGeneration";
 import LandingPageLayout from "../layout/Landing";
 
-interface Props {}
+interface LandingProps {
+  testimonials: TestimonialsType[];
+  blog: any;
+  partners: any;
+  cards: any;
+}
 
-function Home(props: Props) {
+function Home({ blog, cards, partners, testimonials }: LandingProps) {
   const aboutUsRef = React.useRef<HTMLDivElement>(null);
   const contactRef = React.useRef<HTMLDivElement>(null);
   const blogRef = React.useRef<HTMLDivElement>(null);
   const productSection = React.useRef<HTMLDivElement>(null);
 
-  console.log(props);
-
-  const mockBlogData: BlogPost[] = [
-    {
-      blogDate: "25/02/1995",
-      blogFeaturedImage: "https://via.placeholder.com/700",
-      blogTitle: "Blog post 1",
-      blogURL: "https://atlascode.dev",
-      html: "<div>Hello </div>",
-      readingTime: "10",
-    },
-    {
-      blogDate: "25/02/1995",
-      blogFeaturedImage: "https://via.placeholder.com/700",
-      blogTitle: "Blog post 2",
-      blogURL: "https://atlascode.dev",
-      html: "<div>Hello </div>",
-      readingTime: "10",
-    },
-    {
-      blogDate: "25/02/1995",
-      blogFeaturedImage: "https://via.placeholder.com/700",
-      blogTitle: "Blog post 3",
-      blogURL: "https://atlascode.dev",
-      html: "<div>Hello </div>",
-      readingTime: "10",
-    },
-    {
-      blogDate: "25/02/1995",
-      blogFeaturedImage: "https://via.placeholder.com/700",
-      blogTitle: "Blog post 4",
-      blogURL: "https://atlascode.dev",
-      html: "<div>Hello </div>",
-      readingTime: "10",
-    },
-    {
-      blogDate: "25/02/1995",
-      blogFeaturedImage: "https://via.placeholder.com/700",
-      blogTitle: "Blog post 5",
-      blogURL: "https://atlascode.dev",
-      html: "<div>Hello </div>",
-      readingTime: "10",
-    },
-    {
-      blogDate: "25/02/1995",
-      blogFeaturedImage: "https://via.placeholder.com/700",
-      blogTitle: "Blog post 6",
-      blogURL: "https://atlascode.dev",
-      html: "<div>Hello </div>",
-      readingTime: "10",
-    },
-  ];
+  console.log(blog);
 
   const mockProductData: Product[] = [
     {
@@ -155,20 +117,20 @@ function Home(props: Props) {
 
     {
       label: "Depoimentos",
-      component: <Testimonials />,
+      component: <Testimonials testimonials={testimonials} />,
       ref: null,
       hidden: true,
     },
     {
       label: "Blog",
-      component: <Posts blogPosts={mockBlogData} />,
+      component: <Posts blogPosts={blog} />,
       ref: blogRef,
       hidden: false,
     },
 
     {
       label: "Parceiros",
-      component: <Partners />,
+      component: <Partners partners={partners} />,
       ref: null,
       hidden: true,
     },
@@ -202,14 +164,14 @@ function Home(props: Props) {
 
 export default Home;
 
-export const getStaticProps = async (context) => {
-  let testimonialsRequest = await axios.get(
+export const getStaticProps: GetStaticProps<LandingProps> = async (context) => {
+  let testimonialsRequest: AxiosResponse<TestimonialsType[]> = await axios.get(
     "https://us-central1-portalbens-nextjs-hefesto.cloudfunctions.net/api/collections/entries/testimonials"
   );
-  let partnersRequest = await axios.get(
+  let partnersRequest: AxiosResponse<PartnerType[]> = await axios.get(
     "https://us-central1-portalbens-nextjs-hefesto.cloudfunctions.net/api/collections/entries/partners"
   );
-  let blogRequest = await axios.get(
+  let blogRequest: AxiosResponse<BlogPostType[]> = await axios.get(
     "https://us-central1-portalbens-nextjs-hefesto.cloudfunctions.net/api/collections/entries/portalBlog"
   );
 
@@ -217,9 +179,10 @@ export const getStaticProps = async (context) => {
     "https://us-central1-portalbens-nextjs-hefesto.cloudfunctions.net/api/collections/entries/cartas"
   );
 
-  const testimonaislData: any = testimonialsRequest.data;
-  const partnersData: any = partnersRequest.data;
-  const blogData: any = blogRequest.data;
+  const testimonaislData: TestimonialsType[] = testimonialsRequest.data;
+
+  const partnersData: PartnerType[] = partnersRequest.data;
+  const blogData: BlogPostType[] = blogRequest.data;
   const cardsData: any = cardsRequest.data;
 
   return {

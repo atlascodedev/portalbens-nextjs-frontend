@@ -1,5 +1,33 @@
 import React from "react";
 
+export interface HefestoImageField {
+  imageURL: string;
+  imageDescription: string;
+}
+
+export interface TestimonialsType {
+  testimonialPicture: HefestoImageField;
+
+  testimonialText: string;
+  uuid: string;
+  testimonialName: string;
+  testimonialLocation: string;
+}
+
+export type PartnerType = {
+  partnerLogo: HefestoImageField;
+  partnerName: string;
+  uuid: string;
+};
+
+export type BlogPostType = {
+  featuredImage: HefestoImageField;
+  blogActive: boolean;
+  blogTitle: string;
+  uuid: string;
+  blogPost: string;
+};
+
 export interface MenuItem {
   label: string;
   ref: React.RefObject<HTMLDivElement> | null;
