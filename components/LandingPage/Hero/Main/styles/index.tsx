@@ -93,7 +93,6 @@ const HeroLargeImage = styled.img`
   width: 100%;
 
   @media (min-width: 1600px) {
-    height: 110%;
     width: 100%;
   }
 `;

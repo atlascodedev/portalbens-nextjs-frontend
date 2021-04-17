@@ -1,10 +1,10 @@
 import axios, { AxiosResponse } from "axios";
 import { GetStaticPaths, GetStaticPathsResult } from "next";
 import React from "react";
+import { BlogPostType } from "./@types";
+import converToSlug from "./helper/convertToSlug";
 import * as fs from "fs";
 import * as path from "path";
-import { BlogPostType } from "../../@types";
-import converToSlug from "../../helper/convertToSlug";
 
 interface Props {}
 

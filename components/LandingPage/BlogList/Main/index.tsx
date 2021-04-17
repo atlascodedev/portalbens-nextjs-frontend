@@ -10,6 +10,7 @@ import {
 import Link from "next/link";
 import { BlogPost, BlogPostType } from "../../../../@types";
 import EtusBar from "../../../Util/EtusBar";
+import converToSlug from "../../../../helper/convertToSlug";
 
 const PostListRoot = styled.div`
   padding-top: 5vh;
@@ -219,9 +220,7 @@ const PostCardMain = ({
         </PostCardReadTimeContainer>
 
         <PostCardContainer style={{ cursor: "pointer" }}>
-          <Link href={"#"}>
-            <PostCard img={featuredImage.imageURL} />
-          </Link>
+          <PostCard img={featuredImage.imageURL} />
         </PostCardContainer>
 
         <PostTitle>{blogTitle}</PostTitle>
@@ -283,19 +282,26 @@ const Posts = ({ blogPosts = [] }: Props) => {
             <EtusBar width={"200px"} />
           </PostListSectionTitle>
           <PostListContainer>
-            {visiblePostList.map((value, index) => {
-              return (
-                <Fade key={index} in={true} timeout={{ enter: 750 }}>
-                  <div>
-                    <PostCardMain
-                      blogActive={value.blogActive}
-                      blogTitle={value.blogTitle}
-                      featuredImage={value.featuredImage}
-                    />
-                  </div>
-                </Fade>
-              );
-            })}
+            {visiblePostList.map(
+              (
+                { blogActive, blogPost, blogTitle, featuredImage, uuid: id },
+                index
+              ) => {
+                return (
+                  <Fade key={index} in={true} timeout={{ enter: 750 }}>
+                    <Link href={`/blog/${converToSlug(blogTitle)}`}>
+                      <a>
+                        <PostCardMain
+                          blogActive={blogActive}
+                          blogTitle={blogTitle}
+                          featuredImage={featuredImage}
+                        />
+                      </a>
+                    </Link>
+                  </Fade>
+                );
+              }
+            )}
           </PostListContainer>
 
           <div
