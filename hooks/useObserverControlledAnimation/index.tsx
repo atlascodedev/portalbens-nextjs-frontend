@@ -13,8 +13,8 @@ interface useObserverControlledAnimationHook {
 
 const useObserverControlledAnimation = (
   controls: ControlsAnimationDefinition,
-  marginY?: string,
-  marginX?: string,
+  marginY: string = "-50px",
+  marginX: string = "0px",
   triggerOnce: boolean = true
 ): useObserverControlledAnimationHook => {
   const { inView, ref } = useInView({

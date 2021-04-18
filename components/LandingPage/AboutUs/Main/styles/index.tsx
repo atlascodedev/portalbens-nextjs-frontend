@@ -1,6 +1,7 @@
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import styled from "styled-components";
+import useObserverControlledAnimation from "../../../../../hooks/useObserverControlledAnimation";
 import EtusBar from "../../../../Util/EtusBar";
 
 const AboutUsRoot = styled.div`
@@ -121,27 +122,88 @@ interface AboutUsLayoutContainerProps {
 }
 
 const AboutUsLayoutContainer = ({ imgURL }: AboutUsLayoutContainerProps) => {
-  const { ref, inView } = useInView({
-    triggerOnce: false,
-  });
+  // const { animationControls, ref: refus } = useObserverControlledAnimation({
+  //   opacity: [0, 1],
+  //   x: [-250, 0],
+  //   transition: { delay: 1, repeat: Infinity, repeatDelay: 1 },
+  // });
+
+  const { inView, ref } = useInView({ rootMargin: "-100px 0px" });
+
+  const aboutUsVariants: Variants = {
+    visible: {
+      opacity: 1,
+    },
+
+    hidden: {
+      opacity: 0,
+    },
+  };
 
   return (
     <AboutUsRoot ref={ref}>
       <AboutUsInnerContainer>
         <AboutUsPictureContainer>
-          <AboutUsPicture src={imgURL} />
-          <AboutUsPictureText>A oportunidade ao seu alcance</AboutUsPictureText>
+          <motion.div
+            initial={"hidden"}
+            onAnimationEnd={() => console.log("end")}
+            transition={{
+              repeat: Infinity,
+              repeatDelay: 1,
+              duration: 1,
+            }}
+            animate={inView ? "visible" : "hidden"}
+            variants={{
+              visible: { opacity: 1, x: 0 },
+              hidden: {
+                opacity: 0,
+                x: [-100, -50, -35, -25, -20, -15, -10, -5, -0],
+              },
+            }}
+          >
+            <AboutUsPicture src={imgURL} />
+          </motion.div>
+          <motion.div
+            initial={"hidden"}
+            transition={{
+              duration: 0.75,
+              delay: 0.5,
+              repeat: Infinity,
+              repeatDelay: 1,
+            }}
+            animate={inView ? "visible" : "hidden"}
+            variants={{
+              visible: { opacity: [0, 0.5, 0.75, 1], x: 0 },
+              hidden: {
+                opacity: 0,
+                x: [-250, -150, -100, -75, -50, -35, -25, -20, -15, -10, -5, 0],
+              },
+            }}
+          >
+            <AboutUsPictureText>
+              A oportunidade ao seu alcance
+            </AboutUsPictureText>
+          </motion.div>
           <AboutUsDetailTwo src={"/images/detail-1.svg"} />
         </AboutUsPictureContainer>
         <AboutUsTextContainer>
           <AboutUsTextTitleContainer>
             <AboutUsDetailOne src={"/images/detail-2.svg"} />
             <motion.div
+              initial={"hidden"}
               animate={inView ? "visible" : "hidden"}
-              initial="hidden"
+              transition={{
+                duration: 0.75,
+                delay: 0.5,
+                repeat: Infinity,
+                repeatDelay: 1,
+              }}
               variants={{
-                hidden: { opacity: 0 },
-                visible: { opacity: 1 },
+                visible: { opacity: [0, 0.5, 0.75, 1], x: 0 },
+                hidden: {
+                  opacity: 0,
+                  x: [250, 150, 100, 75, 50, 35, 25, 20, 15, 10, 5, 0],
+                },
               }}
             >
               <div>Sobre nós</div>
