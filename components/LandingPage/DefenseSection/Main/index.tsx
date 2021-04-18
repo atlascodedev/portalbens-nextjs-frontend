@@ -1,5 +1,6 @@
 import { Check, MonetizationOn, SecurityRounded } from "@material-ui/icons";
 import React from "react";
+import FadeAnimation from "../../../Util/FadeAnimation";
 import DefenseCard, { DefenseCardProps } from "../DefenseCard";
 import DefenseSectionLayoutContainer, {
   DefenseSectionChildrenWrapper,
@@ -34,11 +35,13 @@ const DefenseSection = (props: Props) => {
       {defenseCards.map((value, index) => {
         return (
           <DefenseSectionChildrenWrapper key={index}>
-            <DefenseCard
-              icon={value.icon}
-              text={value.text}
-              title={value.title}
-            ></DefenseCard>
+            <FadeAnimation >
+              <DefenseCard
+                icon={value.icon}
+                text={value.text}
+                title={value.title}
+              ></DefenseCard>
+            </FadeAnimation>
           </DefenseSectionChildrenWrapper>
         );
       })}

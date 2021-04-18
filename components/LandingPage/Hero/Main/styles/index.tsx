@@ -94,6 +94,7 @@ const HeroLargeImage = styled.img`
 
   @media (min-width: 1600px) {
     width: 100%;
+    height: 100%;
   }
 `;
 
