@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 import styled from "styled-components";
 import EtusBar from "../../../../Util/EtusBar";
 
@@ -119,8 +121,12 @@ interface AboutUsLayoutContainerProps {
 }
 
 const AboutUsLayoutContainer = ({ imgURL }: AboutUsLayoutContainerProps) => {
+  const { ref, inView } = useInView({
+    triggerOnce: false,
+  });
+
   return (
-    <AboutUsRoot>
+    <AboutUsRoot ref={ref}>
       <AboutUsInnerContainer>
         <AboutUsPictureContainer>
           <AboutUsPicture src={imgURL} />
@@ -130,7 +136,16 @@ const AboutUsLayoutContainer = ({ imgURL }: AboutUsLayoutContainerProps) => {
         <AboutUsTextContainer>
           <AboutUsTextTitleContainer>
             <AboutUsDetailOne src={"/images/detail-2.svg"} />
-            <div>Sobre nós</div>
+            <motion.div
+              animate={inView ? "visible" : "hidden"}
+              initial="hidden"
+              variants={{
+                hidden: { opacity: 0 },
+                visible: { opacity: 1 },
+              }}
+            >
+              <div>Sobre nós</div>
+            </motion.div>
             <EtusBar />
           </AboutUsTextTitleContainer>
           <AboutUsAuxText>

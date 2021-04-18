@@ -19,7 +19,6 @@ import Partners from "../components/LandingPage/Partners/Main";
 import ProductIntro from "../components/LandingPage/ProductIntro/Main";
 import ProductSection from "../components/LandingPage/ProductSection/Main";
 import Testimonials from "../components/LandingPage/Testimonials/Main";
-import AnimationWrapper from "../components/Util/AnimationWrapper";
 import FadeAnimation from "../components/Util/FadeAnimation";
 import useLandingPageGeneration from "../hooks/useLandingPageGeneration";
 import LandingPageLayout from "../layout/Landing";
@@ -93,11 +92,7 @@ function Home({ blog, cards, partners, testimonials }: LandingProps) {
     },
     {
       label: "defense",
-      component: (
-        <AnimationWrapper animateClasses={"wow fadeInUp"}>
-          <DefenseSection />
-        </AnimationWrapper>
-      ),
+      component: <DefenseSection />,
       ref: null,
       hidden: true,
     },
