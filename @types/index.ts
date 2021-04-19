@@ -26,6 +26,7 @@ export type BlogPostType = {
   blogTitle: string;
   uuid: string;
   blogPost: string;
+  blogDescription: string;
 };
 
 export interface MenuItem {
