@@ -169,7 +169,12 @@ const AboutUsLayoutContainer = ({ imgURL }: AboutUsLayoutContainerProps) => {
                 </motion.div>
 
                 <motion.img
-                  style={{ position: "absolute", bottom: 0, left: 0 }}
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    display: global.window.innerWidth > 1024 ? "block" : "none",
+                  }}
                   src="images/detail-1.svg"
                   initial={"hidden"}
                   onAnimationEnd={() => console.log("end")}
@@ -222,12 +227,16 @@ const AboutUsLayoutContainer = ({ imgURL }: AboutUsLayoutContainerProps) => {
                     initial={"hidden"}
                     onAnimationEnd={() => console.log("end")}
                     animate={inView ? "visible" : "hidden"}
-                    transition={{ duration: 0.75 }}
+                    transition={{
+                      type: "spring",
+                      damping: 10,
+                      stiffness: 100,
+                    }}
                     variants={{
                       visible: { opacity: 1, y: 0 },
                       hidden: {
                         opacity: 0,
-                        y: 150,
+                        y: 100,
                       },
                     }}
                   >

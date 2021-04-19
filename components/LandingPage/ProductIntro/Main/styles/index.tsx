@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+import InView from "react-intersection-observer";
 import styled from "styled-components";
 import EtusBar from "../../../../Util/EtusBar";
 
@@ -94,27 +96,80 @@ const ProuductIntroLayoutContainer = ({
   imageURL,
 }: ProductIntroLayoutContainerProps) => {
   return (
-    <ProductIntroRoot>
-      <ProductIntroInnerContainer>
-        <ProductIntroPictureContainer>
-          <ProductIntroPicture src={imageURL} />
-          <ProductInfoDetailOne src={"/images/detail-3.svg"} />
-        </ProductIntroPictureContainer>
-        <ProductIntroTextContainer>
-          <ProductIntroTextTitle>
-            <div>O que são cartas contempladas?</div>
-            <EtusBar width={"200px"} />
-          </ProductIntroTextTitle>
-          <ProductIntroTextAux>
-            É uma das opções de investimento mais procuradas no Brasil. Sob
-            posse dessas cartas contempladas o cliente dispõe do valor integral
-            do crédito para a compra do seu bem, sem precisar passar por sorteio
-            ou lance, tendo em seu favor o poder de negociar melhores condições
-            na hora de comprar o seu bem à vista.
-          </ProductIntroTextAux>
-        </ProductIntroTextContainer>
-      </ProductIntroInnerContainer>
-    </ProductIntroRoot>
+    <InView>
+      {({ entry, inView, ref }) => {
+        return (
+          <ProductIntroRoot ref={ref}>
+            <ProductIntroInnerContainer>
+              <ProductIntroPictureContainer>
+                <motion.div
+                  style={{ position: "relative" }}
+                  initial={"hidden"}
+                  onAnimationEnd={() => console.log("end")}
+                  animate={inView ? "visible" : "hidden"}
+                  transition={{ duration: 1.25 }}
+                  variants={{
+                    visible: { opacity: 1, x: 0 },
+                    hidden: {
+                      opacity: 0,
+                      x: "200%",
+                    },
+                  }}
+                >
+                  <ProductIntroPicture src={imageURL} />
+                </motion.div>
+
+                <ProductInfoDetailOne src={"/images/detail-3.svg"} />
+              </ProductIntroPictureContainer>
+              <ProductIntroTextContainer>
+                <ProductIntroTextTitle>
+                  <motion.div
+                    initial={"hidden"}
+                    animate={inView ? "visible" : "hidden"}
+                    transition={{
+                      duration: 1.15,
+                    }}
+                    variants={{
+                      visible: { opacity: 1, x: 0 },
+                      hidden: {
+                        opacity: 0,
+                        x: "100%",
+                      },
+                    }}
+                  >
+                    <div>O que são cartas contempladas?</div>
+                  </motion.div>
+                  <EtusBar width={"200px"} />
+                </ProductIntroTextTitle>
+                <motion.div
+                  initial={"hidden"}
+                  animate={inView ? "visible" : "hidden"}
+                  transition={{
+                    duration: 1.15,
+                  }}
+                  variants={{
+                    visible: { opacity: 1, x: 0 },
+                    hidden: {
+                      opacity: 0,
+                      x: "-100%",
+                    },
+                  }}
+                >
+                  <ProductIntroTextAux>
+                    É uma das opções de investimento mais procuradas no Brasil.
+                    Sob posse dessas cartas contempladas o cliente dispõe do
+                    valor integral do crédito para a compra do seu bem, sem
+                    precisar passar por sorteio ou lance, tendo em seu favor o
+                    poder de negociar melhores condições na hora de comprar o
+                    seu bem à vista.
+                  </ProductIntroTextAux>
+                </motion.div>
+              </ProductIntroTextContainer>
+            </ProductIntroInnerContainer>
+          </ProductIntroRoot>
+        );
+      }}
+    </InView>
   );
 };
 
