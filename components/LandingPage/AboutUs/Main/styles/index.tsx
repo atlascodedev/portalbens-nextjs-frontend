@@ -129,13 +129,14 @@ const AboutUsLayoutContainer = ({ imgURL }: AboutUsLayoutContainerProps) => {
   // });
 
   return (
-    <InView triggerOnce={false} threshold={0.5}>
+    <InView triggerOnce={false}>
       {({ entry, inView, ref }) => {
         return (
           <AboutUsRoot ref={ref}>
             <AboutUsInnerContainer>
-              <AboutUsPictureContainer>
+              <AboutUsPictureContainer style={{ position: "relative" }}>
                 <motion.div
+                  style={{ position: "relative" }}
                   initial={"hidden"}
                   onAnimationEnd={() => console.log("end")}
                   animate={inView ? "visible" : "hidden"}
@@ -167,8 +168,9 @@ const AboutUsLayoutContainer = ({ imgURL }: AboutUsLayoutContainerProps) => {
                   </AboutUsPictureText>
                 </motion.div>
 
-                <motion.div
-                  style={{ position: "relative" }}
+                <motion.img
+                  style={{ position: "absolute", bottom: 0, left: 0 }}
+                  src="images/detail-1.svg"
                   initial={"hidden"}
                   onAnimationEnd={() => console.log("end")}
                   animate={inView ? "visible" : "hidden"}
@@ -180,15 +182,14 @@ const AboutUsLayoutContainer = ({ imgURL }: AboutUsLayoutContainerProps) => {
                     },
                   }}
                 >
-                  <AboutUsDetailTwo src={"/images/detail-1.svg"} />
-                </motion.div>
+                  {/* <AboutUsDetailTwo src={"/images/detail-1.svg"} /> */}
+                </motion.img>
               </AboutUsPictureContainer>
               <AboutUsTextContainer>
                 <AboutUsTextTitleContainer>
                   <motion.div
                     style={{ position: "relative" }}
                     initial={"hidden"}
-                    onAnimationEnd={() => console.log("end")}
                     animate={inView ? "visible" : "hidden"}
                     transition={{ duration: 1.25, delay: 0.75 }}
                     variants={{
@@ -221,11 +222,12 @@ const AboutUsLayoutContainer = ({ imgURL }: AboutUsLayoutContainerProps) => {
                     initial={"hidden"}
                     onAnimationEnd={() => console.log("end")}
                     animate={inView ? "visible" : "hidden"}
-                    transition={{ duration: 1.25, delay: 0.75 }}
+                    transition={{ duration: 0.75 }}
                     variants={{
-                      visible: { opacity: 1 },
+                      visible: { opacity: 1, y: 0 },
                       hidden: {
                         opacity: 0,
+                        y: 150,
                       },
                     }}
                   >
