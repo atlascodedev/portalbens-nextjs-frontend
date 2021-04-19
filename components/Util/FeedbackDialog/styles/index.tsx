@@ -1,4 +1,4 @@
-import { SvgIcon } from "@material-ui/core";
+import { Button, SvgIcon } from "@material-ui/core";
 import {
   CheckCircleOutline,
   Error,
@@ -98,11 +98,56 @@ const FeedbackDialogContentText = styled.div`
   }
 `;
 
-const FeedbackDialogContentButtonContainer = styled.div`
+interface FeedbackDialogContentButtonContainerProps {
+  withCallback: boolean;
+  severity: FeedbackSeverity;
+}
+
+const FeedbackDialogContentButtonContainer = styled.div<FeedbackDialogContentButtonContainerProps>`
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: ${(props) =>
+    props.withCallback ? "space-evenly" : "center"};
   cursor: pointer;
+
+  .cancelBtn {
+    border-color: ${(props) =>
+      props.severity == "success"
+        ? "#2cd283"
+        : props.severity == "error"
+        ? "#FF4743"
+        : props.severity == "warning"
+        ? "#ff9800"
+        : props.severity == "info"
+        ? "#2196f3"
+        : "#E5E5E5"};
+
+    color: ${(props) =>
+      props.severity == "success"
+        ? "#2cd283"
+        : props.severity == "error"
+        ? "#FF4743"
+        : props.severity == "warning"
+        ? "#ff9800"
+        : props.severity == "info"
+        ? "#2196f3"
+        : "#E5E5E5"};
+  }
+
+  .confirmBtn {
+    background-color: ${(props) =>
+      props.severity == "success"
+        ? "#2cd283"
+        : props.severity == "error"
+        ? "#FF4743"
+        : props.severity == "warning"
+        ? "#ff9800"
+        : props.severity == "info"
+        ? "#2196f3"
+        : "#E5E5E5"};
+
+    color: #fff;
+  }
 `;
 
 const FeedbackDialogButtonBase = styled.div<FeedBackSeverityProps>`
@@ -140,19 +185,28 @@ const FeedbackDialogButtonText = styled.div`
 
 export type FeedbackSeverity = "warning" | "success" | "error" | "info";
 
-export interface FeedbackDialogLayoutProps {
+export type FeedbackDialogLayoutProps = {
   severity?: FeedbackSeverity;
   title?: string;
   message?: string;
   closeFn?: (...args: any[]) => void;
-}
+  callback?: ((...args: any[]) => void) | null | void;
+};
 
 const FeedbackDialogLayout = ({
   message = "Placeholder message goes here",
-  severity,
+  severity = "info",
   title = "Placeholder title!",
   closeFn,
+  callback,
 }: FeedbackDialogLayoutProps) => {
+  const handleCallback = () => {
+    if (callback && closeFn) {
+      callback();
+      closeFn();
+    }
+  };
+
   return (
     <FeedbackDialogRoot>
       <FeedbackDialogInnerContainer>
@@ -175,10 +229,23 @@ const FeedbackDialogLayout = ({
           <FeedbackDialogContentTitle>{title}</FeedbackDialogContentTitle>
           <FeedbackDialogContentText>{message}</FeedbackDialogContentText>
 
-          <FeedbackDialogContentButtonContainer>
-            <FeedbackDialogButtonBase onClick={closeFn} severity={severity}>
-              <FeedbackDialogButtonText>Fechar</FeedbackDialogButtonText>
-            </FeedbackDialogButtonBase>
+          <FeedbackDialogContentButtonContainer
+            severity={severity}
+            withCallback={Boolean(callback)}
+          >
+            <Button className="cancelBtn" onClick={closeFn} variant="outlined">
+              Fechar
+            </Button>
+
+            {Boolean(callback) ? (
+              <Button
+                className="confirmBtn"
+                onClick={handleCallback}
+                variant="contained"
+              >
+                Confirmar
+              </Button>
+            ) : null}
           </FeedbackDialogContentButtonContainer>
         </FeedbackDialogContentContainer>
       </FeedbackDialogInnerContainer>

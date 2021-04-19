@@ -10,19 +10,21 @@ import SwiperCore, {
 } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ProductSearch, { ProductSearchProps } from "../ProductSearch";
-import { Product, ProductType } from "../../../../@types";
+import { CardProduct, ProductType } from "../../../../@types";
 import { Fade } from "@material-ui/core";
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, Autoplay]);
 
 interface Props {
-  products: Product[];
+  products: CardProduct[];
 }
 
 const ProductSection = ({ products = [] }: Props) => {
   const [maxValue, setMaxValue] = React.useState<string | number | null>("");
   const [productType, setProductType] = React.useState<ProductType>("vehicle");
-  const [visibleProducts, setVisibleProducts] = React.useState<Product[]>([]);
+  const [visibleProducts, setVisibleProducts] = React.useState<CardProduct[]>(
+    []
+  );
 
   React.useEffect(() => {
     setVisibleProducts(products);
@@ -35,11 +37,11 @@ const ProductSection = ({ products = [] }: Props) => {
     if (maxValueArg == "") {
       setVisibleProducts(products);
     } else {
-      let productVisibleLocal: Product[] = products.filter(
-        (product: Product, index: number) => {
+      let productVisibleLocal: CardProduct[] = products.filter(
+        (product: CardProduct, index: number) => {
           return (
-            product.entradaCredito <= parseInt(maxValueArg as string) &&
-            product.type == productTypeArg
+            product.cardEntrada <= parseInt(maxValueArg as string) &&
+            product.cardType == productTypeArg
           );
         }
       );
@@ -72,12 +74,12 @@ const ProductSection = ({ products = [] }: Props) => {
         <Swiper
           id="swiper-products"
           slidesPerView={"auto"}
-          centeredSlides={Boolean(visibleProducts.length > 3)}
+          centeredSlides={visibleProducts.length <= 3 ? true : false}
           pagination={{ clickable: true, dynamicBullets: true }}
           draggable
           breakpoints={{
             1024: {
-              slidesPerView: 3, 
+              slidesPerView: 3,
             },
           }}
         >
@@ -95,7 +97,7 @@ const ProductSection = ({ products = [] }: Props) => {
               </div>
             </Fade>
           ) : (
-            visibleProducts.map((value: Product, index: number) => {
+            visibleProducts.map((value: CardProduct, index: number) => {
               return (
                 <SwiperSlide key={index}>
                   <Fade
@@ -106,12 +108,15 @@ const ProductSection = ({ products = [] }: Props) => {
                   >
                     <div>
                       <ProductCard
-                        admin={value.admin}
-                        entradaCredito={value.entradaCredito}
-                        featured={value.featured}
-                        saldoCredito={value.saldoCredito}
-                        type={value.type}
-                        valorCredito={value.valorCredito}
+                        cardExpire={value.cardExpire}
+                        cardSituation={value.cardSituation}
+                        uuid={value.uuid}
+                        administradora={value.administradora}
+                        cardEntrada={value.cardEntrada}
+                        cardDestaque={value.cardDestaque}
+                        cardInstallment={value.cardInstallment}
+                        cardType={value.cardType}
+                        cardValor={value.cardValor}
                       />
                     </div>
                   </Fade>

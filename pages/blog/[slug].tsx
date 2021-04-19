@@ -13,8 +13,19 @@ const BlogPostContainerRoot = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
   padding-top: 0px;
   width: 100%;
+  margin: 5% 0px;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 0px;
+    width: 100%;
+  }
 
   overflow-x: hidden;
 `;
@@ -60,6 +71,9 @@ const BlogPostDescription = styled.div`
   font-size: 12px;
   font-weight: 400px;
   font-family: "Roboto";
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
 
   @media (min-width: 1024px) {
     font-size: 20px;

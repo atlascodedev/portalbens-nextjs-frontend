@@ -10,9 +10,10 @@ import {
 } from "@material-ui/icons";
 import styled from "styled-components";
 import React from "react";
-import { Product } from "../../../../../@types";
+import { CardInstallment, CardProduct, Product } from "../../../../../@types";
 import _ from "lodash";
 import formatToCurrency from "../../../../../helper/formatToCurrency";
+import { ProductCardProps } from "../";
 
 const ProductCardRoot = styled.div`
   width: 295px;
@@ -152,16 +153,37 @@ const CircleAroundIcon = styled.div`
   }
 `;
 
-interface ProductCardLayoutProps extends Product {}
+interface ProductCardLayoutProps extends ProductCardProps {}
 
 const ProductCardLayout = ({
-  admin,
-  entradaCredito,
-  featured,
-  saldoCredito,
-  type,
-  valorCredito,
+  administradora,
+  cardDestaque,
+  cardEntrada,
+  cardExpire,
+  cardInstallment,
+  cardSituation,
+  cardType,
+  cardValor,
+  uuid,
+  formCallback,
+  whatsAppCallback,
 }: ProductCardLayoutProps) => {
+  const handleFormCallback = () => {
+    if (formCallback) {
+      formCallback();
+    } else {
+      console.log("No  call back was passed to a card component");
+    }
+  };
+
+  const handleWhatsAppCallback = () => {
+    if (whatsAppCallback) {
+      whatsAppCallback();
+    } else {
+      console.log("no callback was passed down to a card component");
+    }
+  };
+
   return (
     <ProductCardRoot>
       <ProductCardInnerContainer>
@@ -174,12 +196,12 @@ const ProductCardLayout = ({
             >
               <ProductCardHeaderInnerIconContainer>
                 <SvgIcon
-                  component={type == "vehicle" ? DriveEta : Home}
+                  component={cardType == "vehicle" ? DriveEta : Home}
                 ></SvgIcon>
               </ProductCardHeaderInnerIconContainer>
             </div>
             <ProductCardHeaderInnerLabel>
-              {type == "vehicle" ? "Veículo" : "Imóvel"}
+              {cardType == "vehicle" ? "Veículo" : "Imóvel"}
             </ProductCardHeaderInnerLabel>
             <ProductCardHeaderInnerSpecialDealIconContainer>
               <Tooltip
@@ -195,7 +217,7 @@ const ProductCardLayout = ({
                 }
               >
                 <ProductSpecialDealIconWrapper
-                  style={{ display: featured ? "flex" : "none" }}
+                  style={{ display: cardDestaque ? "flex" : "none" }}
                 >
                   <SvgIcon component={Star} />
                 </ProductSpecialDealIconWrapper>
@@ -211,7 +233,7 @@ const ProductCardLayout = ({
                 {formatToCurrency(
                   "pt-BR",
                   "BRL",
-                  parseInt(valorCredito as string)
+                  parseInt(cardValor as string)
                 )}
               </div>
             </div>
@@ -221,22 +243,50 @@ const ProductCardLayout = ({
                 {formatToCurrency(
                   "pt-BR",
                   "BRL",
-                  parseInt(entradaCredito as string)
+                  parseInt(cardEntrada as string)
                 )}
               </div>
             </div>
             <div className="infoContainer">
               <div className="title">Saldo</div>
-              <div className="info">{saldoCredito}</div>
+              <div className="info">
+                {cardInstallment.map(
+                  (value: CardInstallment, index: number) => {
+                    return (
+                      <div style={{ display: "flex" }} key={index}>
+                        <div
+                          className="months"
+                          style={{
+                            display: "flex",
+                            alignItems: "flex-end",
+                            fontWeight: "bold",
+                            fontSize: "14px",
+                            marginRight: "10px",
+                          }}
+                        >
+                          {value.installmentMonths + "x"}
+                        </div>
+                        <div className="installmentValue">
+                          {formatToCurrency(
+                            "pt-BR",
+                            "BRL",
+                            parseInt(value.installmentValue as string)
+                          )}
+                        </div>
+                      </div>
+                    );
+                  }
+                )}
+              </div>
             </div>
             <div className="infoContainer last">
               <div className="title">Administradora</div>
-              <div className="info">{_.capitalize(admin)}</div>
+              <div className="info">{_.capitalize(administradora)}</div>
             </div>
           </ProductCardContentInfo>
           <ProductCardContentContact>
             <Tooltip title={"Contato via formulário"}>
-              <div style={{ marginTop: "29px" }}>
+              <div style={{ marginTop: "29px" }} onClick={handleFormCallback}>
                 <CircleAroundIcon>
                   <SvgIcon component={Email} />
                 </CircleAroundIcon>
@@ -244,7 +294,7 @@ const ProductCardLayout = ({
             </Tooltip>
 
             <Tooltip title={"Contato via WhatsApp"}>
-              <CircleAroundIcon>
+              <CircleAroundIcon onClick={handleWhatsAppCallback}>
                 <SvgIcon component={WhatsApp} />
               </CircleAroundIcon>
             </Tooltip>

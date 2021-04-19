@@ -5,6 +5,7 @@ import React from "react";
 import {
   BlogPost,
   BlogPostType,
+  CardProduct,
   PartnerType,
   Product,
   ProductType,
@@ -26,9 +27,9 @@ import LandingPageLayout from "../layout/Landing";
 
 interface LandingProps {
   testimonials: TestimonialsType[];
-  blog: any;
-  partners: any;
-  cards: any;
+  blog: BlogPostType[];
+  partners: PartnerType[];
+  cards: CardProduct[];
 }
 
 function Home({ blog, cards, partners, testimonials }: LandingProps) {
@@ -38,51 +39,6 @@ function Home({ blog, cards, partners, testimonials }: LandingProps) {
   const productSection = React.useRef<HTMLDivElement>(null);
 
   console.log(cards);
-
-  const mockProductData: Product[] = [
-    {
-      admin: "Admin teste 1",
-      entradaCredito: "3500",
-      featured: true,
-      saldoCredito: "12x de R$651,00",
-      type: "housing",
-      valorCredito: "35000",
-    },
-
-    {
-      admin: "Admin teste 2",
-      entradaCredito: "4250",
-      featured: false,
-      saldoCredito: "10x de R$450,00",
-      type: "vehicle",
-      valorCredito: "60000",
-    },
-
-    {
-      admin: "Admin teste 3",
-      entradaCredito: "5000",
-      featured: false,
-      saldoCredito: "25x de R$800",
-      type: "housing",
-      valorCredito: "500000",
-    },
-    {
-      admin: "Admin teste 4",
-      entradaCredito: "52323",
-      featured: true,
-      saldoCredito: "25x de R$93232",
-      type: "housing",
-      valorCredito: "199999",
-    },
-    {
-      admin: "Admin teste 5",
-      entradaCredito: "1000000",
-      featured: false,
-      saldoCredito: "100x de R$100000",
-      type: "vehicle",
-      valorCredito: "3123213213131",
-    },
-  ];
 
   const { navigableArray, menuItemArray } = useLandingPageGeneration([
     {
@@ -112,27 +68,30 @@ function Home({ blog, cards, partners, testimonials }: LandingProps) {
 
     {
       label: "Nossos produtos",
-      component: <ProductSection products={mockProductData} />,
+      component: <ProductSection products={cards} />,
       ref: productSection,
       hidden: false,
     },
 
     {
       label: "Depoimentos",
-      component: <Testimonials testimonials={testimonials} />,
+      component:
+        testimonials.length > 0 ? (
+          <Testimonials testimonials={testimonials} />
+        ) : null,
       ref: null,
       hidden: true,
     },
     {
       label: "Blog",
-      component: <Posts blogPosts={blog} />,
+      component: blog.length > 0 ? <Posts blogPosts={blog} /> : null,
       ref: blogRef,
-      hidden: false,
+      hidden: blog.length > 0 ? false : true,
     },
 
     {
       label: "Parceiros",
-      component: <Partners partners={partners} />,
+      component: partners.length > 0 ? <Partners partners={partners} /> : null,
       ref: null,
       hidden: true,
     },

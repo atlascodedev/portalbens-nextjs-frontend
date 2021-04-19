@@ -1,25 +1,38 @@
 import React from "react";
-import { Product } from "../../../../@types";
+import { CardProduct, Product } from "../../../../@types";
 import ProductCardLayout from "./styles";
 
-interface Props extends Product {}
+export interface ProductCardProps extends CardProduct {
+  whatsAppCallback?: (...args: any[]) => void;
+  formCallback?: (...args: any[]) => void;
+}
 
 const ProductCard = ({
-  admin,
-  entradaCredito,
-  featured,
-  saldoCredito,
-  type,
-  valorCredito,
-}: Props) => {
+  administradora,
+  cardDestaque,
+  cardEntrada,
+  cardExpire,
+  cardInstallment,
+  cardSituation,
+  cardType,
+  cardValor,
+  uuid,
+  formCallback,
+  whatsAppCallback,
+}: ProductCardProps) => {
   return (
     <ProductCardLayout
-      admin={admin}
-      entradaCredito={entradaCredito}
-      featured={featured}
-      saldoCredito={saldoCredito}
-      type={type}
-      valorCredito={valorCredito}
+      formCallback={formCallback}
+      whatsAppCallback={whatsAppCallback}
+      administradora={administradora}
+      cardDestaque={cardDestaque}
+      cardEntrada={cardEntrada}
+      cardExpire={cardExpire}
+      cardInstallment={cardInstallment}
+      cardSituation={cardSituation}
+      cardType={cardType}
+      cardValor={cardValor}
+      uuid={uuid}
     />
   );
 };

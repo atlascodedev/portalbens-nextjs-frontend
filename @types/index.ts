@@ -1,5 +1,10 @@
 import React from "react";
 
+export interface EpochDate {
+  _nanoseconds: number;
+  _seconds: number;
+}
+
 export interface HefestoImageField {
   imageURL: string;
   imageDescription: string;
@@ -45,7 +50,7 @@ export interface NavigableComponent {
 
 export interface BlogPost {
   blogTitle: string;
-  blogDate: string;
+  blogDate: EpochDate;
   blogFeaturedImage: string;
   html: string;
   blogURL: string;
@@ -71,10 +76,7 @@ export interface CardProduct {
   cardEntrada: string | number;
   cardSituation: boolean;
   cardValor: number | string;
-  cardExpire: {
-    _nanoseconds: number;
-    _seconds: number;
-  };
+  cardExpire: EpochDate;
   cardInstallment: CardInstallment[];
   uuid: string;
 }
