@@ -11,6 +11,7 @@ import styled from "styled-components";
 const FeedbackDialogRoot = styled.div`
   width: 320px;
   height: 416px;
+  font-family: "Roboto";
 
   background: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);

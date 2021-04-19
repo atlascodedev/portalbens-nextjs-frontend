@@ -12,6 +12,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import ProductSearch, { ProductSearchProps } from "../ProductSearch";
 import { CardProduct, ProductType } from "../../../../@types";
 import { Fade } from "@material-ui/core";
+import useEnhancedDialog from "../../../../hooks/useEnhancedDialog";
+import formatToCurrency from "../../../../helper/formatToCurrency";
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, Autoplay]);
 
@@ -58,8 +60,53 @@ const ProductSection = ({ products = [] }: Props) => {
     setMaxValue(newMaxValue);
   };
 
+  const {
+    EnhancedDialog: WhatsAppDialog,
+    setCallback: setCallbackWhatsApp,
+    setVisibility: setVisibilityWhatsApp,
+  } = useEnhancedDialog(
+    `Você será direcionado ao WhatspApp para falar com um de nossos representantes sobre esta carta`,
+    "Informação",
+    "info"
+  );
+
+  const whatsAppCallback = (cardInfo: CardProduct) => {
+    setCallbackWhatsApp(() => {
+      let message: string = `Olá, gostaria de falar sobre a seguinte carta: \n\n\ *ID*: ${
+        cardInfo.uuid
+      } \n\n *Valor do crédito*: ${formatToCurrency(
+        "pt-BR",
+        "BRL",
+        parseInt(cardInfo.cardValor as string)
+      )} \n\n *Parcelas*: \n\ ${cardInfo.cardInstallment.map((value, index) => {
+        return `*${value.installmentMonths}* vezes de ${formatToCurrency(
+          "pt-BR",
+          "BRL",
+          parseInt(value.installmentValue as string)
+        )} \n `;
+      })}
+      \n *Administradora*: ${
+        cardInfo.administradora
+      } \n\n *Entrada*: ${formatToCurrency(
+        "pt-BR",
+        "BRL",
+        parseInt(cardInfo.cardEntrada as string)
+      )} 
+      `;
+
+      window.open(
+        `https://web.whatsapp.com/send?phone=555499848770&text=${encodeURIComponent(
+          message
+        )}&lang=pt_br`,
+        "_blank"
+      );
+    });
+  };
+
   return (
     <ProductSectionLayout>
+      <WhatsAppDialog />
+
       <div style={{ paddingBottom: "5%" }}>
         <ProductSearch
           filterProduct={handleProductFiltering}
@@ -108,6 +155,7 @@ const ProductSection = ({ products = [] }: Props) => {
                   >
                     <div>
                       <ProductCard
+                        whatsAppCallback={() => whatsAppCallback(value)}
                         cardExpire={value.cardExpire}
                         cardSituation={value.cardSituation}
                         uuid={value.uuid}
