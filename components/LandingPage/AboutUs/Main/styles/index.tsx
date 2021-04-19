@@ -1,5 +1,5 @@
 import { motion, Variants } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+import InView, { useInView } from "react-intersection-observer";
 import styled from "styled-components";
 import useObserverControlledAnimation from "../../../../../hooks/useObserverControlledAnimation";
 import EtusBar from "../../../../Util/EtusBar";
@@ -128,100 +128,141 @@ const AboutUsLayoutContainer = ({ imgURL }: AboutUsLayoutContainerProps) => {
   //   transition: { delay: 1, repeat: Infinity, repeatDelay: 1 },
   // });
 
-  const { inView, ref } = useInView({ rootMargin: "-100px 0px" });
-
-  const aboutUsVariants: Variants = {
-    visible: {
-      opacity: 1,
-    },
-
-    hidden: {
-      opacity: 0,
-    },
-  };
-
   return (
-    <AboutUsRoot ref={ref}>
-      <AboutUsInnerContainer>
-        <AboutUsPictureContainer>
-          <motion.div
-            initial={"hidden"}
-            onAnimationEnd={() => console.log("end")}
-            transition={{
-              repeat: Infinity,
-              repeatDelay: 1,
-              duration: 1,
-            }}
-            animate={inView ? "visible" : "hidden"}
-            variants={{
-              visible: { opacity: 1, x: 0 },
-              hidden: {
-                opacity: 0,
-                x: [-100, -50, -35, -25, -20, -15, -10, -5, -0],
-              },
-            }}
-          >
-            <AboutUsPicture src={imgURL} />
-          </motion.div>
-          <motion.div
-            initial={"hidden"}
-            transition={{
-              duration: 0.75,
-              delay: 0.5,
-              repeat: Infinity,
-              repeatDelay: 1,
-            }}
-            animate={inView ? "visible" : "hidden"}
-            variants={{
-              visible: { opacity: [0, 0.5, 0.75, 1], x: 0 },
-              hidden: {
-                opacity: 0,
-                x: [-250, -150, -100, -75, -50, -35, -25, -20, -15, -10, -5, 0],
-              },
-            }}
-          >
-            <AboutUsPictureText>
-              A oportunidade ao seu alcance
-            </AboutUsPictureText>
-          </motion.div>
-          <AboutUsDetailTwo src={"/images/detail-1.svg"} />
-        </AboutUsPictureContainer>
-        <AboutUsTextContainer>
-          <AboutUsTextTitleContainer>
-            <AboutUsDetailOne src={"/images/detail-2.svg"} />
-            <motion.div
-              initial={"hidden"}
-              animate={inView ? "visible" : "hidden"}
-              transition={{
-                duration: 0.75,
-                delay: 0.5,
-                repeat: Infinity,
-                repeatDelay: 1,
-              }}
-              variants={{
-                visible: { opacity: [0, 0.5, 0.75, 1], x: 0 },
-                hidden: {
-                  opacity: 0,
-                  x: [250, 150, 100, 75, 50, 35, 25, 20, 15, 10, 5, 0],
-                },
-              }}
-            >
-              <div>Sobre nós</div>
-            </motion.div>
-            <EtusBar />
-          </AboutUsTextTitleContainer>
-          <AboutUsAuxText>
-            Fundada no ano de 2005 e com sede na cidade de Passo Fundo no estado
-            do Rio Grande do Sul, a Portal Bens constrói a todo o momento uma
-            relação de segurança, respeito, confiança e gratidão com seus
-            clientes. Fortalecemos nossos valores com a experiência de nosso
-            fundador Moisés de Oliveira que atua nesse ramo desde 1997.
-            Trabalhamos forte junto de nossa equipe, sempre em busca de
-            consolidar nossa marca como referência no mercado financeiro.
-          </AboutUsAuxText>
-        </AboutUsTextContainer>
-      </AboutUsInnerContainer>
-    </AboutUsRoot>
+    <InView triggerOnce={false} threshold={0.5}>
+      {({ entry, inView, ref }) => {
+        return (
+          <AboutUsRoot ref={ref}>
+            <AboutUsInnerContainer>
+              <AboutUsPictureContainer>
+                <motion.div
+                  initial={"hidden"}
+                  onAnimationEnd={() => console.log("end")}
+                  animate={inView ? "visible" : "hidden"}
+                  transition={{ duration: 1.25 }}
+                  variants={{
+                    visible: { opacity: 1, x: 0 },
+                    hidden: {
+                      opacity: 0,
+                      x: "-200%",
+                    },
+                  }}
+                >
+                  <AboutUsPicture src={imgURL} />
+                </motion.div>
+                <motion.div
+                  initial={"hidden"}
+                  transition={{ duration: 1.15 }}
+                  animate={inView ? "visible" : "hidden"}
+                  variants={{
+                    visible: { opacity: 1, x: 0 },
+                    hidden: {
+                      opacity: 0,
+                      x: "-200%",
+                    },
+                  }}
+                >
+                  <AboutUsPictureText>
+                    A oportunidade ao seu alcance
+                  </AboutUsPictureText>
+                </motion.div>
+
+                <motion.div
+                  style={{ position: "relative" }}
+                  initial={"hidden"}
+                  onAnimationEnd={() => console.log("end")}
+                  animate={inView ? "visible" : "hidden"}
+                  transition={{ duration: 1.25, delay: 0.75 }}
+                  variants={{
+                    visible: { opacity: 1 },
+                    hidden: {
+                      opacity: 0,
+                    },
+                  }}
+                >
+                  <AboutUsDetailTwo src={"/images/detail-1.svg"} />
+                </motion.div>
+              </AboutUsPictureContainer>
+              <AboutUsTextContainer>
+                <AboutUsTextTitleContainer>
+                  <motion.div
+                    style={{ position: "relative" }}
+                    initial={"hidden"}
+                    onAnimationEnd={() => console.log("end")}
+                    animate={inView ? "visible" : "hidden"}
+                    transition={{ duration: 1.25, delay: 0.75 }}
+                    variants={{
+                      visible: { opacity: 1 },
+                      hidden: {
+                        opacity: 0,
+                      },
+                    }}
+                  >
+                    <AboutUsDetailOne src={"/images/detail-2.svg"} />
+                  </motion.div>
+
+                  <motion.div
+                    initial={"hidden"}
+                    transition={{ duration: 1.15 }}
+                    animate={inView ? "visible" : "hidden"}
+                    variants={{
+                      visible: { opacity: 1, x: 0 },
+                      hidden: {
+                        opacity: 0,
+                        x: "-100%",
+                      },
+                    }}
+                  >
+                    <div>Sobre nós</div>
+                  </motion.div>
+
+                  <motion.div
+                    style={{ position: "relative" }}
+                    initial={"hidden"}
+                    onAnimationEnd={() => console.log("end")}
+                    animate={inView ? "visible" : "hidden"}
+                    transition={{ duration: 1.25, delay: 0.75 }}
+                    variants={{
+                      visible: { opacity: 1 },
+                      hidden: {
+                        opacity: 0,
+                      },
+                    }}
+                  >
+                    <EtusBar />
+                  </motion.div>
+                </AboutUsTextTitleContainer>
+                <motion.div
+                  initial={"hidden"}
+                  animate={inView ? "visible" : "hidden"}
+                  transition={{
+                    duration: 1.15,
+                  }}
+                  variants={{
+                    visible: { opacity: 1, x: 0 },
+                    hidden: {
+                      opacity: 0,
+                      x: "100%",
+                    },
+                  }}
+                >
+                  <AboutUsAuxText>
+                    Fundada no ano de 2005 e com sede na cidade de Passo Fundo
+                    no estado do Rio Grande do Sul, a Portal Bens constrói a
+                    todo o momento uma relação de segurança, respeito, confiança
+                    e gratidão com seus clientes. Fortalecemos nossos valores
+                    com a experiência de nosso fundador Moisés de Oliveira que
+                    atua nesse ramo desde 1997. Trabalhamos forte junto de nossa
+                    equipe, sempre em busca de consolidar nossa marca como
+                    referência no mercado financeiro.
+                  </AboutUsAuxText>
+                </motion.div>
+              </AboutUsTextContainer>
+            </AboutUsInnerContainer>
+          </AboutUsRoot>
+        );
+      }}
+    </InView>
   );
 };
 
