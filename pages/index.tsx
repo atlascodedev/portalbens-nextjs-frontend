@@ -37,7 +37,7 @@ function Home({ blog, cards, partners, testimonials }: LandingProps) {
   const blogRef = React.useRef<HTMLDivElement>(null);
   const productSection = React.useRef<HTMLDivElement>(null);
 
-  console.log(blog);
+  console.log(cards);
 
   const mockProductData: Product[] = [
     {

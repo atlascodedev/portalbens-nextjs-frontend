@@ -57,6 +57,27 @@ export type BlogPostList = {
 
 export type ProductType = "vehicle" | "housing";
 
+export interface CardInstallment {
+  id: string;
+  installmentValue: number | string;
+  installmentMonths: string | number;
+}
+
+export interface CardProduct {
+  cardType: ProductType;
+  cardDestaque: boolean;
+  administradora: string;
+  cardEntrada: string | number;
+  cardSituation: boolean;
+  cardValor: number | string;
+  cardExpire: {
+    _nanoseconds: number;
+    _seconds: number;
+  };
+  cardInstallment: CardInstallment[];
+  uuid: string;
+}
+
 export interface Product {
   type: ProductType;
   featured: boolean;

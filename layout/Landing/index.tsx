@@ -9,15 +9,16 @@ import logo from "../../public/images/portalbens-logo.svg";
 interface Props {
   children: React.ReactNode;
   menu: MenuItem[];
+  navbarAnchored?: boolean;
 }
 
-const LandingPageLayout = ({ children, menu }: Props) => {
+const LandingPageLayout = ({ children, menu, navbarAnchored }: Props) => {
   const [isLoaded, setIsLoaded] = React.useState<boolean>(true);
 
   React.useEffect(() => {
     setTimeout(() => {
       setIsLoaded(false);
-    }, 5000);
+    }, 3000);
   }, []);
 
   return (
@@ -35,7 +36,12 @@ const LandingPageLayout = ({ children, menu }: Props) => {
           </motion.div>
         )}
       </AnimatePresence>
-      <Navbar menu={menu} logo={"/images/portalbens-logo.svg"} /> {children}
+      <Navbar
+        navbarAnchored={navbarAnchored}
+        menu={menu}
+        logo={"/images/portalbens-logo.svg"}
+      />{" "}
+      {children}
       <Footer />
     </React.Fragment>
   );

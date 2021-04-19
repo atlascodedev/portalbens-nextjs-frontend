@@ -6,9 +6,10 @@ import NavbarMainLayout from "./styles";
 interface Props {
   logo: string;
   menu: MenuItem[];
+  navbarAnchored?: boolean;
 }
 
-const Navbar = ({ logo, menu }: Props) => {
+const Navbar = ({ logo, menu, navbarAnchored }: Props) => {
   const [drawerOpen, setDrawerOpen] = React.useState<boolean>(false);
 
   const toggleDrawer = (open: boolean) => {
@@ -24,6 +25,7 @@ const Navbar = ({ logo, menu }: Props) => {
         sidebarItems={menu}
       />
       <NavbarMainLayout
+        anchored={navbarAnchored}
         menu={menu}
         openDrawer={toggleDrawer}
         logo={logo}

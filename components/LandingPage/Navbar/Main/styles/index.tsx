@@ -22,6 +22,23 @@ const NavbarMainRoot = styled.div`
   }
 `;
 
+interface NavbarMainRootAnchorProps {
+  anchored?: boolean;
+}
+
+const NavbarMainRootAnchor = styled.div<NavbarMainRootAnchorProps>`
+  width: 100%;
+  visibility: hidden;
+  top: 0;
+  left: 0;
+  position: ${(props) => (props.anchored ? "relative" : "fixed")};
+  height: 70px;
+
+  @media (min-width: 1024px) {
+    height: 110px;
+  }
+`;
+
 const NavbarMainInnerContainer = styled.div`
   display: flex;
   width: 100%;
@@ -90,39 +107,44 @@ interface NavbarMainLayoutProps {
   logo: string;
   openDrawer: (open: boolean) => void;
   menu: MenuItem[];
+  anchored?: boolean;
 }
 
 const NavbarMainLayout = ({
   logo,
   openDrawer,
   menu,
+  anchored,
 }: NavbarMainLayoutProps) => {
   return (
-    <NavbarMainRoot>
-      <NavbarMainInnerContainer>
-        <NavbarMainLogoContainer onClick={returnHome}>
-          <NavbarMainLogo src={logo} alt="Portal Bens - Logotipo" />
-        </NavbarMainLogoContainer>
-        <NavbarMainDrawerButtonContainer onClick={() => openDrawer(true)}>
-          <SvgIcon component={Menu} />
-        </NavbarMainDrawerButtonContainer>
-        <NavbarMainItemContainer>
-          {menu.map((value, index) => {
-            if (!value.hidden) {
-              return (
-                <NavbarMainItem
-                  onClick={() => scrollIntoView(value.label, value.ref)}
-                  key={index}
-                  ref={value.ref}
-                >
-                  {value.label}
-                </NavbarMainItem>
-              );
-            }
-          })}
-        </NavbarMainItemContainer>
-      </NavbarMainInnerContainer>
-    </NavbarMainRoot>
+    <React.Fragment>
+      <NavbarMainRoot>
+        <NavbarMainInnerContainer>
+          <NavbarMainLogoContainer onClick={returnHome}>
+            <NavbarMainLogo src={logo} alt="Portal Bens - Logotipo" />
+          </NavbarMainLogoContainer>
+          <NavbarMainDrawerButtonContainer onClick={() => openDrawer(true)}>
+            <SvgIcon component={Menu} />
+          </NavbarMainDrawerButtonContainer>
+          <NavbarMainItemContainer>
+            {menu.map((value, index) => {
+              if (!value.hidden) {
+                return (
+                  <NavbarMainItem
+                    onClick={() => scrollIntoView(value.label, value.ref)}
+                    key={index}
+                    ref={value.ref}
+                  >
+                    {value.label}
+                  </NavbarMainItem>
+                );
+              }
+            })}
+          </NavbarMainItemContainer>
+        </NavbarMainInnerContainer>
+      </NavbarMainRoot>
+      <NavbarMainRootAnchor anchored={anchored} />
+    </React.Fragment>
   );
 };
 

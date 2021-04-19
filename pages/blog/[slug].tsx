@@ -5,8 +5,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { BlogPostType } from "../../@types";
 import converToSlug from "../../helper/convertToSlug";
-
-interface Props {}
+import LandingPageLayout from "../../layout/Landing";
 
 const blogDataDir: string = path.resolve(
   process.cwd(),
@@ -15,10 +14,14 @@ const blogDataDir: string = path.resolve(
   "data"
 );
 
-const BlogTemplate = (props: Props) => {
+const BlogTemplate = (props: BlogPostType) => {
   console.log(props);
 
-  return <div></div>;
+  return (
+    <LandingPageLayout navbarAnchored menu={[]}>
+      <div dangerouslySetInnerHTML={{ __html: props.blogPost }} />
+    </LandingPageLayout>
+  );
 };
 
 export default BlogTemplate;
@@ -69,5 +72,5 @@ export const getStaticProps = async ({ params }) => {
   });
   //   console.log(blogData);
 
-  return { props: { postData: blogPost[0] } };
+  return { props: blogPost[0] };
 };
