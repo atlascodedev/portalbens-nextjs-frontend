@@ -20,6 +20,7 @@ import ProductIntro from "../components/LandingPage/ProductIntro/Main";
 import ProductSection from "../components/LandingPage/ProductSection/Main";
 import Testimonials from "../components/LandingPage/Testimonials/Main";
 import FadeAnimation from "../components/Util/FadeAnimation";
+import LoaderSpinner from "../components/Util/Loader";
 import useLandingPageGeneration from "../hooks/useLandingPageGeneration";
 import LandingPageLayout from "../layout/Landing";
 
@@ -149,7 +150,6 @@ function Home({ blog, cards, partners, testimonials }: LandingProps) {
         <title>Portal Bens Contemplados</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <LandingPageLayout menu={menuItemArray}>
         {navigableArray.map((navigable, index) => {
           return (
