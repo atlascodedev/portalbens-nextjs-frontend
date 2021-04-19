@@ -1,5 +1,5 @@
 module.exports = {
-  exportTrailingSlash: true,
+  trailingSlash: true,
 
   webpack(config) {
     config.module.rules.push({
