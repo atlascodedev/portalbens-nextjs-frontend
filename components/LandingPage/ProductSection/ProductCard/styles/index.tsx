@@ -17,7 +17,7 @@ import { ProductCardProps } from "../";
 
 const ProductCardRoot = styled.div`
   width: 295px;
-  height: 320px;
+  height: auto;
   background: #f7f7f7;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
