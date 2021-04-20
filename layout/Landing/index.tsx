@@ -4,6 +4,8 @@ import { MenuItem } from "../../@types";
 import Footer from "../../components/LandingPage/Footer/Main";
 import Navbar from "../../components/LandingPage/Navbar/Main";
 import LoaderSpinner from "../../components/Util/Loader";
+import { documentBodyScrollToggle } from "../../helper/documentBodyScrollToggle";
+import { useDocumentBodyLock } from "../../hooks/useDocumentBodyLock";
 import logo from "../../public/images/portalbens-logo.svg";
 
 interface Props {
@@ -26,6 +28,11 @@ const LandingPageLayout = ({ children, menu, navbarAnchored }: Props) => {
       <AnimatePresence initial={false}>
         {isLoaded && (
           <motion.div
+            onAnimationComplete={() =>
+              (global.window.document.getElementsByTagName(
+                "html"
+              )[0].style.overflow = "initial")
+            }
             style={{ position: "absolute", zIndex: 9999999 }}
             animate={{ opacity: 1 }}
             exit={{

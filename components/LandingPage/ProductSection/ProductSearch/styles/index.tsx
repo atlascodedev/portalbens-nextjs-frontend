@@ -146,9 +146,13 @@ const ProductSearchLayout = ({
               prefix={"Até R$"}
               //   fixedDecimalScale={true}
               placeholder={"Até R$ 6000"}
-              onValueChange={({ floatValue, formattedValue, value }) =>
-                setMaxValue(floatValue)
-              }
+              onValueChange={({ floatValue, formattedValue, value }) => {
+                if (floatValue) {
+                  setMaxValue(floatValue);
+                } else {
+                  setMaxValue("");
+                }
+              }}
             />
           </div>
         </ProductSearchPriceRangeContainer>
@@ -161,8 +165,8 @@ const ProductSearchLayout = ({
               value={productType}
               select
             >
-              <MenuItem value={"vehicle"}>Veículos</MenuItem>
-              <MenuItem value={"housing"}>Imóveis</MenuItem>
+              <MenuItem value={"Automóvel"}>Veículos</MenuItem>
+              <MenuItem value={"Imóvel"}>Imóveis</MenuItem>
             </TextField>
           </div>
         </ProductSearchTypeSelectContainer>

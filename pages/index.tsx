@@ -131,7 +131,7 @@ export const getStaticProps: GetStaticProps<LandingProps> = async (context) => {
     "https://us-central1-portalbens-nextjs-hefesto.cloudfunctions.net/api/collections/entries/portalBlog"
   );
 
-  let cardsRequest = await axios.get(
+  let cardsRequest: AxiosResponse<CardProduct[]> = await axios.get(
     "https://us-central1-portalbens-nextjs-hefesto.cloudfunctions.net/api/collections/entries/cartas"
   );
 
@@ -139,7 +139,7 @@ export const getStaticProps: GetStaticProps<LandingProps> = async (context) => {
 
   const partnersData: PartnerType[] = partnersRequest.data;
   const blogData: BlogPostType[] = blogRequest.data;
-  const cardsData: any = cardsRequest.data;
+  const cardsData: CardProduct[] = cardsRequest.data;
 
   return {
     props: {

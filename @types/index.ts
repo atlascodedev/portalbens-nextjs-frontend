@@ -62,7 +62,7 @@ export type BlogPostList = {
   blogPosts: Array<BlogPost>;
 };
 
-export type ProductType = "vehicle" | "housing";
+export type ProductType = "Automóvel" | "Imóvel";
 
 export interface CardInstallment {
   id: string;

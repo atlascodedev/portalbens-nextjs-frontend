@@ -196,12 +196,12 @@ const ProductCardLayout = ({
             >
               <ProductCardHeaderInnerIconContainer>
                 <SvgIcon
-                  component={cardType == "vehicle" ? DriveEta : Home}
+                  component={cardType == "Automóvel" ? DriveEta : Home}
                 ></SvgIcon>
               </ProductCardHeaderInnerIconContainer>
             </div>
             <ProductCardHeaderInnerLabel>
-              {cardType == "vehicle" ? "Veículo" : "Imóvel"}
+              {cardType == "Automóvel" ? "Veículo" : "Imóvel"}
             </ProductCardHeaderInnerLabel>
             <ProductCardHeaderInnerSpecialDealIconContainer>
               <Tooltip

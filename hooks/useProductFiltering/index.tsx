@@ -1,16 +1,18 @@
 import React from "react";
-import { Product, ProductType } from "../../@types";
+import { CardProduct, ProductType } from "../../@types";
 
 const useProductFiltering = (
-  products: Product[],
+  products: CardProduct[],
   maxValue: number | string | null,
   productType: ProductType | null
 ) => {
-  const [visibleProducts, setVisibleProducts] = React.useState<Product[]>([]);
+  const [visibleProducts, setVisibleProducts] = React.useState<CardProduct[]>(
+    []
+  );
 
   if (productType !== null || maxValue !== null) {
     products.filter((product, index) => {
-      return product.entradaCredito <= maxValue && product.type == productType;
+      return product.cardEntrada <= maxValue && product.cardType == productType;
     });
   }
 };

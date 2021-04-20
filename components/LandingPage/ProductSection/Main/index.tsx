@@ -23,10 +23,14 @@ interface Props {
 
 const ProductSection = ({ products = [] }: Props) => {
   const [maxValue, setMaxValue] = React.useState<string | number | null>("");
-  const [productType, setProductType] = React.useState<ProductType>("vehicle");
+  const [productType, setProductType] = React.useState<ProductType>(
+    "Automóvel"
+  );
   const [visibleProducts, setVisibleProducts] = React.useState<CardProduct[]>(
     []
   );
+
+  console.log(visibleProducts, productType, maxValue, products);
 
   React.useEffect(() => {
     setVisibleProducts(products);
@@ -37,9 +41,19 @@ const ProductSection = ({ products = [] }: Props) => {
     productTypeArg: ProductType
   ): void => {
     if (maxValueArg == "") {
-      setVisibleProducts(products);
+      let productVisibleLocalDefault: CardProduct[] = products;
+
+      let filteredProducts = productVisibleLocalDefault.filter(
+        (product, index) => {
+          return product.cardType == productTypeArg;
+        }
+      );
+
+      setVisibleProducts([...filteredProducts]);
     } else {
-      let productVisibleLocal: CardProduct[] = products.filter(
+      let productVisibleLocal: CardProduct[] = products;
+
+      let filteredProducts = productVisibleLocal.filter(
         (product: CardProduct, index: number) => {
           return (
             product.cardEntrada <= parseInt(maxValueArg as string) &&
@@ -48,7 +62,7 @@ const ProductSection = ({ products = [] }: Props) => {
         }
       );
 
-      setVisibleProducts(productVisibleLocal);
+      setVisibleProducts([...filteredProducts]);
     }
   };
 
@@ -151,7 +165,6 @@ const ProductSection = ({ products = [] }: Props) => {
                     in={true}
                     timeout={{ enter: 500, exit: 750 }}
                     unmountOnExit
-                    exit={true}
                   >
                     <div>
                       <ProductCard
