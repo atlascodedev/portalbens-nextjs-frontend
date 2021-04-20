@@ -87,13 +87,6 @@ const BlogPostMetadataContainer = styled.div`
 
 const BlogPostDate = styled.div``;
 
-const blogDataDir: string = path.resolve(
-  process.cwd(),
-  "pages",
-  "blog",
-  "data"
-);
-
 const BlogTemplate = (props: BlogPostType) => {
   console.log(props);
 
@@ -133,19 +126,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   const blogPostData = blogPostRequest.data;
 
-  if (!fs.existsSync(blogDataDir)) {
-    fs.mkdirSync(blogDataDir);
-  }
-
-  blogPostData.forEach((value: BlogPostType, index: number) => {
-    let blogDataJSON: string = JSON.stringify(value);
-
-    fs.writeFileSync(`${blogDataDir}/${value.uuid}.json`, blogDataJSON, "utf8");
-  });
-
   const paths = blogPostData.map((value: BlogPostType, index: number) => {
     return {
-      params: { slug: converToSlug(value.blogTitle) },
+      params: { slug: value.slug },
     };
   });
 
@@ -153,24 +136,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }) => {
-  let blogData: BlogPostType[] = [];
+  const blogPostWhereLikeSlugRequest: AxiosResponse<BlogPostType> = await axios.post(
+    "https://us-central1-portalbens-nextjs-hefesto.cloudfunctions.net/api/collections/entries/portalBlog/where",
+    {
+      key: "slug",
+      value: params.slug,
+    }
+  );
 
-  let availableFiles: string[] = fs.readdirSync(blogDataDir);
+  const blogPostWhereLikeSlugData = blogPostWhereLikeSlugRequest.data;
 
-  availableFiles.forEach((value: string, index: number) => {
-    let jsonData: string = fs
-      .readFileSync(`${blogDataDir}/${value}`, "utf8")
-      .toString();
-
-    let parsedData: BlogPostType = JSON.parse(jsonData);
-
-    blogData.push(parsedData);
-  });
-
-  let blogPost: BlogPostType[] = blogData.filter((value, index) => {
-    return converToSlug(value.blogTitle) == params.slug;
-  });
-  //   console.log(blogData);
-
-  return { props: blogPost[0] };
+  return { props: blogPostWhereLikeSlugData };
 };

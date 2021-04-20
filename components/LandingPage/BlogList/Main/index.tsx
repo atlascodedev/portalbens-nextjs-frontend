@@ -284,12 +284,19 @@ const Posts = ({ blogPosts = [] }: Props) => {
           <PostListContainer>
             {visiblePostList.map(
               (
-                { blogActive, blogPost, blogTitle, featuredImage, uuid: id },
+                {
+                  blogActive,
+                  blogPost,
+                  blogTitle,
+                  featuredImage,
+                  uuid: id,
+                  slug,
+                },
                 index
               ) => {
                 return (
                   <Fade key={index} in={true} timeout={{ enter: 750 }}>
-                    <Link href={`/blog/${converToSlug(blogTitle)}`}>
+                    <Link href={`/blog/${slug}`}>
                       <a>
                         <PostCardMain
                           blogActive={blogActive}

@@ -31,6 +31,7 @@ export type BlogPostType = {
   blogTitle: string;
   uuid: string;
   blogPost: string;
+  slug: string;
   blogDescription: string;
 };
 
