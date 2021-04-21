@@ -36,8 +36,6 @@ function Home({ blog, cards, partners, testimonials }: LandingProps) {
   const blogRef = React.useRef<HTMLDivElement>(null);
   const productSection = React.useRef<HTMLDivElement>(null);
 
-  console.log(testimonials);
-
   const { navigableArray, menuItemArray } = useLandingPageGeneration([
     {
       label: "Hero",

@@ -25,8 +25,6 @@ const FadeAnimation = ({
   React.useEffect(() => {
     if (inView) {
       controls.start("visible");
-      console.log(inView);
-      console.log("view");
     }
   }, [controls, inView]);
 

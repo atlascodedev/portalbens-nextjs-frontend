@@ -23,9 +23,22 @@ interface Props {
 }
 
 const ProductSection = ({ products = [] }: Props) => {
+  const ProductFormFeedbackDialog = useEnhancedDialog(
+    "Seu formulário foi enviado com sucesso, em breve um membro de nossa equipe entrará em contato para atendé-lo",
+    "Formulário enviado com sucesso",
+    "success"
+  );
+
   const [backdropVisibility, setBackdropVisibility] = React.useState<boolean>(
     false
   );
+
+  const [formCardDetails, setFormCardDetails] = React.useState<string>("");
+
+  const handleFormContactCallback = (cardInfo: string) => {
+    setBackdropVisibility(true);
+    setFormCardDetails(cardInfo);
+  };
 
   const toggleBackdropVisibility = (open: boolean) => {
     setBackdropVisibility(open);
@@ -38,8 +51,6 @@ const ProductSection = ({ products = [] }: Props) => {
   const [visibleProducts, setVisibleProducts] = React.useState<CardProduct[]>(
     []
   );
-
-  console.log(visibleProducts, productType, maxValue, products);
 
   React.useEffect(() => {
     setVisibleProducts(products);
@@ -128,8 +139,11 @@ const ProductSection = ({ products = [] }: Props) => {
 
   return (
     <ProductSectionLayout>
+      <ProductFormFeedbackDialog.EnhancedDialog />
       <WhatsAppDialog />
       <ProductContactForm
+        toggleFeedback={ProductFormFeedbackDialog.setVisibility}
+        cardDetails={formCardDetails}
         open={backdropVisibility}
         toggleVisibility={toggleBackdropVisibility}
       />
@@ -182,7 +196,30 @@ const ProductSection = ({ products = [] }: Props) => {
                   >
                     <div>
                       <ProductCard
-                        formCallback={() => toggleBackdropVisibility(true)}
+                        formCallback={() =>
+                          handleFormContactCallback(`\n\n ID: ${
+                            value.uuid
+                          } \n\n <br> <br> Administradora: ${
+                            value.administradora
+                          } \n\n <br> <br> Entrada: ${
+                            value.cardEntrada
+                          } \n\n <br> <br> Tipo de carta: ${
+                            value.cardType
+                          } \n\n <br> <br> Valor da carta: ${
+                            value.cardValor
+                          } \n\n <br> <br> Parcelas: ${value.cardInstallment
+                            .map((value, index) => {
+                              return `<br>\n\n ${
+                                value.installmentMonths
+                              } de ${formatToCurrency(
+                                "pt-BR",
+                                "BRL",
+                                parseInt(value.installmentValue.toString())
+                              )} \n`;
+                            })
+                            .join(" <br>\n\n")}
+                        `)
+                        }
                         whatsAppCallback={() => whatsAppCallback(value)}
                         cardExpire={value.cardExpire}
                         cardSituation={value.cardSituation}

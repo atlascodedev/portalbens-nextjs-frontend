@@ -23,7 +23,7 @@ const useEnhancedDialog = (
     callback: (...args: any[]) => void;
     open: boolean;
   }>({
-    callback: () => console.log("well hello"),
+    callback: null,
     open: false,
   });
 

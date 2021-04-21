@@ -44,7 +44,7 @@ const ContactForm = (props: Props) => {
       message: "",
     },
     enableReinitialize: true,
-    isInitialValid: false,
+    validateOnMount: true,
     validationSchema: Yup.object({
       name: Yup.string().required("Este campo é obrigatório"),
       email: Yup.string()
