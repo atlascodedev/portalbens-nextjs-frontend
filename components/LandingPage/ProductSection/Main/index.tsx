@@ -14,6 +14,7 @@ import { CardProduct, ProductType } from "../../../../@types";
 import { Fade } from "@material-ui/core";
 import useEnhancedDialog from "../../../../hooks/useEnhancedDialog";
 import formatToCurrency from "../../../../helper/formatToCurrency";
+import ProductContactForm from "../ProductContactForm/Main";
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, Autoplay]);
 
@@ -22,6 +23,14 @@ interface Props {
 }
 
 const ProductSection = ({ products = [] }: Props) => {
+  const [backdropVisibility, setBackdropVisibility] = React.useState<boolean>(
+    false
+  );
+
+  const toggleBackdropVisibility = (open: boolean) => {
+    setBackdropVisibility(open);
+  };
+
   const [maxValue, setMaxValue] = React.useState<string | number | null>("");
   const [productType, setProductType] = React.useState<ProductType>(
     "Automóvel"
@@ -120,6 +129,10 @@ const ProductSection = ({ products = [] }: Props) => {
   return (
     <ProductSectionLayout>
       <WhatsAppDialog />
+      <ProductContactForm
+        open={backdropVisibility}
+        toggleVisibility={toggleBackdropVisibility}
+      />
 
       <div style={{ paddingBottom: "5%" }}>
         <ProductSearch
@@ -152,6 +165,7 @@ const ProductSection = ({ products = [] }: Props) => {
                   justifyContent: "center",
                   alignItems: "center",
                   fontSize: "22px",
+                  textAlign: "center",
                 }}
               >
                 Nenhuma carta com estes critérios foi encontrada.
@@ -168,6 +182,7 @@ const ProductSection = ({ products = [] }: Props) => {
                   >
                     <div>
                       <ProductCard
+                        formCallback={() => toggleBackdropVisibility(true)}
                         whatsAppCallback={() => whatsAppCallback(value)}
                         cardExpire={value.cardExpire}
                         cardSituation={value.cardSituation}

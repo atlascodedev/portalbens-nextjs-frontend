@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import AdonisImage from "../../../../Util/AdonisImage";
 
 const ContactRoot = styled.div`
   background-color: #e0e0e0;
@@ -107,7 +108,7 @@ const ContactLayoutContainer = ({
     <ContactRoot>
       <ContactInnerContainer>
         <ContactInnerImageContainer>
-          <ContactInnerImage src={imageURL} />
+          <AdonisImage imageURL={imageURL} height={45} mobileHeight={100} />
           <ContactInnerImageTextContainer>
             <ContactInnerImageTextTitle>
               Invista nos seus sonhos.

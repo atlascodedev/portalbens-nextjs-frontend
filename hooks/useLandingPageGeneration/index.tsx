@@ -40,11 +40,7 @@ const useLandingPageGeneration = (
 
         landingItemInternal.navigableElement = (
           <div ref={menuItem.ref} id={menuIdInternal}>
-            {menuItem.component ? (
-              menuItem.component
-            ) : (
-              <div> No child element was passed </div>
-            )}
+            {menuItem.component ? menuItem.component : null}
           </div>
         );
 

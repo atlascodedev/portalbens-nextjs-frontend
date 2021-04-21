@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import AdonisImage from "../../../../Util/AdonisImage";
 
 const HeroRoot = styled.div`
   position: relative;
@@ -108,7 +109,19 @@ const HeroContainer = ({ image, placeholder, thumbnail }: HeroLayoutProps) => {
   return (
     <HeroRoot>
       <HeroInnerContainerMobile>
-        <HeroImageMobile src={thumbnail} />
+        {/* <HeroImageMobile src={thumbnail} /> */}
+
+        <div style={{ position: "absolute", top: "7%", right: "0" }}>
+          <AdonisImage
+            imageURL={image}
+            small
+            mobileHeight={125}
+            objectFit="cover"
+            alt="Casal abraçando-se após adquirir apartamento"
+            objectPosition="left"
+          />
+        </div>
+
         <HeroInnerMobileTextContainer>
           <HeroInnerMobileTextMain>
             Oferecemos consórcios e cartas contempladas.
@@ -133,10 +146,7 @@ const HeroContainer = ({ image, placeholder, thumbnail }: HeroLayoutProps) => {
           </HeroLargeTextAux>
         </HeroLargeTextContainer>
 
-        <HeroLargeImage
-          src={image}
-          alt="Casal abraçando-se após adquirir apartamento"
-        />
+        <AdonisImage imageURL={image} />
       </HeroInnerContainerLargeDevices>
     </HeroRoot>
   );

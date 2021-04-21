@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import AdonisImage from "../../../../Util/AdonisImage";
 
 const TestimonialCardRoot = styled.div`
   width: 298px;
-  height: 363px;
+  height: auto;
   font-family: "Roboto";
 
   text-align: center;
@@ -39,17 +40,13 @@ interface TestimonialCardPictureProps {
   imageURL?: string;
 }
 
-const TestimonialCardPicture = styled.div<TestimonialCardPictureProps>`
+const TestimonialCardPicture = styled.div`
   background: #78e08f;
   border-radius: 4px;
   width: 97.75px;
   height: 90.51px;
   margin-top: 19px;
   margin-bottom: 17px;
-  background-image: ${(props) => `url(${props.imageURL})`};
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
 
   @media (min-width: 1024px) {
     width: 108px;
@@ -88,7 +85,14 @@ const TestimonialCardLayoutContainer = ({
   return (
     <TestimonialCardRoot>
       <TestimonialCardInnerContainer>
-        <TestimonialCardPicture imageURL={imageURL} />
+        <TestimonialCardPicture>
+          <AdonisImage
+            imageURL={imageURL}
+            objectFit="fill"
+            borderRadius={"6px"}
+            small
+          />
+        </TestimonialCardPicture>
         <TestimonialCardTitle>{title}</TestimonialCardTitle>
         <TestimonialCardContent>{text}</TestimonialCardContent>
         <TestimonialCardFooter>{location}</TestimonialCardFooter>

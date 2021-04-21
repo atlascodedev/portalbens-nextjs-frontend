@@ -2,6 +2,7 @@ import { motion, Variants } from "framer-motion";
 import InView, { useInView } from "react-intersection-observer";
 import styled from "styled-components";
 import useObserverControlledAnimation from "../../../../../hooks/useObserverControlledAnimation";
+import AdonisImage from "../../../../Util/AdonisImage";
 import EtusBar from "../../../../Util/EtusBar";
 
 const AboutUsRoot = styled.div`
@@ -149,7 +150,11 @@ const AboutUsLayoutContainer = ({ imgURL }: AboutUsLayoutContainerProps) => {
                     },
                   }}
                 >
-                  <AboutUsPicture src={imgURL} />
+                  <AdonisImage
+                    height={32.5}
+                    mobileHeight={50}
+                    imageURL={imgURL}
+                  />
                 </motion.div>
                 <motion.div
                   initial={"hidden"}

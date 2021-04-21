@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import InView from "react-intersection-observer";
 import styled from "styled-components";
+import AdonisImage from "../../../../Util/AdonisImage";
 import EtusBar from "../../../../Util/EtusBar";
 
 const ProductIntroRoot = styled.div`
@@ -116,7 +117,8 @@ const ProuductIntroLayoutContainer = ({
                     },
                   }}
                 >
-                  <ProductIntroPicture src={imageURL} />
+                  {/* <ProductIntroPicture src={imageURL} /> */}
+                  <AdonisImage mobileHeight={63} height={34} imageURL={imageURL} />
                 </motion.div>
 
                 <ProductInfoDetailOne src={"/images/detail-3.svg"} />
