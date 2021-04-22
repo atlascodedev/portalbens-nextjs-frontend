@@ -10,7 +10,7 @@ const Contact = ({}: Props) => {
   return (
     <ContactLayoutContainer
       imageURL={
-        "https://firebasestorage.googleapis.com/v0/b/portalbens-nextjs-hefesto.appspot.com/o/adonis%2Fgallery%2Fportalbens-contact.webp?alt=media"
+        "https://firebasestorage.googleapis.com/v0/b/portalbens-nextjs-hefesto.appspot.com/o/adonis%2Fgallery%2Fgroup-828.webp?alt=media"
       }
     >
       <ContactForm />

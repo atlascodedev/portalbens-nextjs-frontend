@@ -108,7 +108,11 @@ const ContactLayoutContainer = ({
     <ContactRoot>
       <ContactInnerContainer>
         <ContactInnerImageContainer>
-          <AdonisImage imageURL={imageURL} height={45} mobileHeight={100} />
+          <AdonisImage
+            imageURL={imageURL}
+            objectFit="cover"
+            mobileHeight={100}
+          />
           <ContactInnerImageTextContainer>
             <ContactInnerImageTextTitle>
               Invista nos seus sonhos.
@@ -117,7 +121,7 @@ const ContactLayoutContainer = ({
               Permita que a Portal Bens aproxime você dos seus objetivos.
             </ContactInnerImageTextAux>
           </ContactInnerImageTextContainer>
-          <ContactInnerImageDetailOne src={"/images/detail-3.svg"} />
+          {/* <ContactInnerImageDetailOne src={"/images/detail-3.svg"} /> */}
         </ContactInnerImageContainer>
 
         <ContactInnerFormContainer>{children}</ContactInnerFormContainer>
