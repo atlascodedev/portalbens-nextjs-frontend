@@ -16,6 +16,7 @@ interface Props extends ProductContactFormLayoutProps {
   toggleVisibility: (open: boolean) => void;
   cardDetails?: string;
   toggleFeedback: (open: boolean) => void;
+  loadingFeedback: (loading: boolean) => void;
 }
 
 const ProductContactForm = ({
@@ -23,6 +24,7 @@ const ProductContactForm = ({
   toggleVisibility,
   cardDetails,
   toggleFeedback,
+  loadingFeedback,
 }: Props) => {
   const formik = useFormik({
     initialValues: {
@@ -44,7 +46,7 @@ const ProductContactForm = ({
 
     onSubmit: (values, actions) => {
       toggleVisibility(false);
-
+      loadingFeedback(true);
       axios
         .post(
           "https://us-central1-atlascodedev-landing.cloudfunctions.net/api/sendMail/portalbens",
@@ -59,10 +61,12 @@ const ProductContactForm = ({
           toggleFeedback(true);
           actions.setSubmitting(false);
           actions.resetForm();
+          loadingFeedback(false);
         })
         .catch((error) => {
           actions.setSubmitting(false);
           actions.resetForm();
+          loadingFeedback(false);
         });
     },
   });

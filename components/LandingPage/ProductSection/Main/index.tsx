@@ -149,6 +149,7 @@ const ProductSection = ({ products = [], globalLoadingFn }: Props) => {
       <ProductFormFeedbackDialog.EnhancedDialog />
       <WhatsAppDialog />
       <ProductContactForm
+        loadingFeedback={globalLoadingFn}
         toggleFeedback={ProductFormFeedbackDialog.setVisibility}
         cardDetails={formCardDetails}
         open={backdropVisibility}
