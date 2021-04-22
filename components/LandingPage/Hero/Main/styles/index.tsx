@@ -63,6 +63,7 @@ const HeroInnerContainerLargeDevices = styled.div`
   grid-template-columns: 50% 50%;
   height: 100%;
   display: none;
+  overflow: hidden;
 
   @media (min-width: 768px) {
     display: grid;
@@ -147,7 +148,7 @@ const HeroContainer = ({ image, placeholder, thumbnail }: HeroLayoutProps) => {
         </HeroLargeTextContainer>
 
         <div style={{ transform: "translateX(20px)" }}>
-          <AdonisImage imageURL={image} objectFit="cover" height={60} xl={55} />
+          <AdonisImage imageURL={image} />
         </div>
       </HeroInnerContainerLargeDevices>
     </HeroRoot>

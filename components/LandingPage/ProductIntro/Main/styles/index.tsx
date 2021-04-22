@@ -118,7 +118,11 @@ const ProuductIntroLayoutContainer = ({
                   }}
                 >
                   {/* <ProductIntroPicture src={imageURL} /> */}
-                  <AdonisImage mobileHeight={63} height={34} imageURL={imageURL} />
+                  <AdonisImage
+                    mobileHeight={63}
+                    height={34}
+                    imageURL={imageURL}
+                  />
                 </motion.div>
 
                 <ProductInfoDetailOne src={"/images/detail-3.svg"} />
@@ -139,7 +143,7 @@ const ProuductIntroLayoutContainer = ({
                       },
                     }}
                   >
-                    <div>O que são cartas contempladas?</div>
+                    <div>O que é carta contemplada?</div>
                   </motion.div>
                   <EtusBar width={"200px"} />
                 </ProductIntroTextTitle>

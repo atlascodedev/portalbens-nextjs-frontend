@@ -211,13 +211,13 @@ const PostCardMain = ({
   return (
     <div>
       <PostCardAncientRoot>
-        <PostCardReadTimeContainer>
+        {/* <PostCardReadTimeContainer>
           <SvgIcon component={AccessTime} />
           <div className="timer">
             {readTime} {parseInt(readTime) <= 1 ? "minuto" : "minutos"} de
             leitura
           </div>
-        </PostCardReadTimeContainer>
+        </PostCardReadTimeContainer> */}
 
         <PostCardContainer style={{ cursor: "pointer" }}>
           <PostCard img={featuredImage.imageURL} />

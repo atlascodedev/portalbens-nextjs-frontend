@@ -156,9 +156,7 @@ const FooterLayout = ({}: FooterLayoutProps) => {
         </FooterUpperContainer>
         <FooterBottomContainer>
           <div>
-            {
-              "© 2020 - Todos Direitos Reservados - Atlas Code Dev - Desenvolvimento web & estratégia"
-            }
+            {`© ${new Date().getFullYear()} - Todos Direitos Reservados - Atlas Code Dev - Desenvolvimento web & estratégia`}
           </div>
         </FooterBottomContainer>
       </FooterInnerContainer>

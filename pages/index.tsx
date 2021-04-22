@@ -1,14 +1,11 @@
 import axios, { AxiosResponse } from "axios";
-import { GetStaticProps, GetStaticPropsResult } from "next";
+import { GetStaticProps } from "next";
 import Head from "next/head";
 import React from "react";
 import {
-  BlogPost,
   BlogPostType,
   CardProduct,
   PartnerType,
-  Product,
-  ProductType,
   TestimonialsType,
 } from "../@types";
 import AboutUs from "../components/LandingPage/AboutUs/Main";
@@ -63,7 +60,7 @@ function Home({ blog, cards, partners, testimonials }: LandingProps) {
     },
 
     {
-      label: "Nossos produtos",
+      label: "Nossos serviços",
       component: <ProductSection products={cards} />,
       ref: productSection,
       hidden: false,
