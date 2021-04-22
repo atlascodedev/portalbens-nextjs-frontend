@@ -148,7 +148,10 @@ const HeroContainer = ({ image, placeholder, thumbnail }: HeroLayoutProps) => {
         </HeroLargeTextContainer>
 
         <div style={{ transform: "translateX(20px)" }}>
-          <AdonisImage imageURL={image} />
+          <AdonisImage
+            alt="Casal abraçando-se após adquirir apartamento"
+            imageURL={image}
+          />
         </div>
       </HeroInnerContainerLargeDevices>
     </HeroRoot>
