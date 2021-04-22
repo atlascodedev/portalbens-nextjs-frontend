@@ -146,7 +146,9 @@ const HeroContainer = ({ image, placeholder, thumbnail }: HeroLayoutProps) => {
           </HeroLargeTextAux>
         </HeroLargeTextContainer>
 
-        <AdonisImage imageURL={image} />
+        <div style={{ transform: "translateX(20px)" }}>
+          <AdonisImage imageURL={image} objectFit="cover" height={60} xl={55} />
+        </div>
       </HeroInnerContainerLargeDevices>
     </HeroRoot>
   );

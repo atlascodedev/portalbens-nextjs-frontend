@@ -15,6 +15,7 @@ interface Props {
   alt?: string;
   height?: number;
   mobileHeight?: number;
+  xl?: number;
   objectFit?: ObjectFitProperty;
   objectPosition?: ObjectPositionProperty | string;
   borderRadius?: string;
@@ -30,6 +31,7 @@ const AdonisImage = ({
   objectPosition = "50% 50%",
   borderRadius = "0px",
   small,
+  xl,
 }: Props) => {
   const {
     fullImage,
@@ -43,6 +45,8 @@ const AdonisImage = ({
     containerHeight = mobileHeight + "vw";
   } else if (global.window && global.window.innerWidth > 768 && height) {
     containerHeight = height + "vw";
+  } else if (global.window && global.window.innerWidth > 1600 && xl) {
+    containerHeight = xl + "vw";
   } else {
     containerHeight = "100%";
   }
