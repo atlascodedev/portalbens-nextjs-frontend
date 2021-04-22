@@ -1,6 +1,9 @@
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, SvgIcon } from "@material-ui/core";
+import { ArrowDownward } from "@material-ui/icons";
+import { motion, useAnimation } from "framer-motion";
 import React from "react";
 import styled from "styled-components";
+import { HeroProps } from "..";
 import AdonisImage from "../../../../Util/AdonisImage";
 
 const HeroRoot = styled.div`
@@ -91,6 +94,28 @@ const HeroLargeTextAux = styled.div`
   width: 75%;
 `;
 
+const ArrowDownContainer = styled(motion.div)`
+  position: absolute;
+  bottom: 2%;
+
+  /* left: 50%; */
+  /* right: -50%; */
+  z-index: 1000;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+
+  .MuiSvgIcon-root {
+    fill: #fff;
+    font-size: 3rem;
+
+    @media (min-width: 1024px) {
+      font-size: 4rem;
+    }
+  }
+`;
+
 const HeroLargeImage = styled.img`
   height: auto;
   width: 100%;
@@ -101,15 +126,41 @@ const HeroLargeImage = styled.img`
   }
 `;
 
-interface HeroLayoutProps {
+interface HeroLayoutProps extends HeroProps {
   thumbnail: string;
   image: string;
   placeholder: string;
 }
 
-const HeroContainer = ({ image, placeholder, thumbnail }: HeroLayoutProps) => {
+const HeroContainer = ({
+  image,
+  placeholder,
+  thumbnail,
+  heroScroll,
+}: HeroLayoutProps) => {
+  const arrowControls = useAnimation();
+
+  React.useEffect(() => {
+    arrowControls.start("cycle");
+  }, []);
+
   return (
     <HeroRoot>
+      <ArrowDownContainer
+        animate={arrowControls}
+        onClick={heroScroll}
+        transition={{
+          duration: 0.75,
+          repeat: Infinity,
+          repeatType: "mirror",
+          type: "spring",
+        }}
+        variants={{
+          cycle: { y: [0, 20] },
+        }}
+      >
+        <SvgIcon component={ArrowDownward} />
+      </ArrowDownContainer>
       <HeroInnerContainerMobile>
         {/* <HeroImageMobile src={thumbnail} /> */}
 

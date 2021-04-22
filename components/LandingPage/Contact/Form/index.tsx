@@ -15,7 +15,9 @@ import FeedbackDialog from "../../../Util/FeedbackDialog";
 import axios from "axios";
 import { FeedbackSeverity } from "../../../Util/FeedbackDialog/styles";
 
-interface Props {}
+interface Props {
+  loadingFn: (loading: boolean) => void;
+}
 
 interface FeedbackState {
   severity: FeedbackSeverity;
@@ -23,7 +25,7 @@ interface FeedbackState {
   title: string;
 }
 
-const ContactForm = (props: Props) => {
+const ContactForm = ({ loadingFn }: Props) => {
   const [feedbackOpen, setFeedbackOpen] = React.useState<boolean>(false);
   const [feedbackState, setFeedbackState] = React.useState<FeedbackState>({
     severity: "success",
@@ -56,6 +58,7 @@ const ContactForm = (props: Props) => {
 
     onSubmit: (values, actions) => {
       actions.setSubmitting(true);
+      loadingFn(true);
 
       axios
         .post(
@@ -70,6 +73,7 @@ const ContactForm = (props: Props) => {
         .then((result) => {
           console.log(result);
           toggleFeedbackDialog(true);
+          loadingFn(false);
           setFeedbackState({
             severity: "success",
             message:
@@ -80,6 +84,7 @@ const ContactForm = (props: Props) => {
           actions.resetForm();
         })
         .catch((error) => {
+          loadingFn(false);
           toggleFeedbackDialog(true);
           console.log(error);
           setFeedbackState({

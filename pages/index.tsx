@@ -17,6 +17,7 @@ import Partners from "../components/LandingPage/Partners/Main";
 import ProductIntro from "../components/LandingPage/ProductIntro/Main";
 import ProductSection from "../components/LandingPage/ProductSection/Main";
 import Testimonials from "../components/LandingPage/Testimonials/Main";
+import scrollIntoView from "../helper/scrollIntoView";
 import useLandingPageGeneration from "../hooks/useLandingPageGeneration";
 import LandingPageLayout from "../layout/Landing";
 
@@ -44,7 +45,11 @@ function Home({ blog, cards, partners, testimonials }: LandingProps) {
   const { navigableArray, menuItemArray } = useLandingPageGeneration([
     {
       label: "Hero",
-      component: <Hero />,
+      component: (
+        <Hero
+          heroScroll={() => scrollIntoView("Nossos serviços", productSection)}
+        />
+      ),
       ref: null,
       hidden: true,
     },
@@ -100,7 +105,7 @@ function Home({ blog, cards, partners, testimonials }: LandingProps) {
     },
     {
       label: "Contato",
-      component: <Contact />,
+      component: <Contact loadingFn={toggleLoading} />,
       ref: contactRef,
       hidden: false,
     },
