@@ -20,7 +20,7 @@ const LandingPageLayout = ({
   children,
   menu,
   navbarAnchored,
-  loadingState = false,
+  loadingState 
 }: Props) => {
   const [isLoaded, setIsLoaded] = React.useState<boolean>(true);
 

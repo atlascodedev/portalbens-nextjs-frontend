@@ -39,6 +39,8 @@ function Home({ blog, cards, partners, testimonials }: LandingProps) {
     setLoadingState(loading);
   };
 
+  console.log(loadingState);
+
   const { navigableArray, menuItemArray } = useLandingPageGeneration([
     {
       label: "Hero",
@@ -67,7 +69,9 @@ function Home({ blog, cards, partners, testimonials }: LandingProps) {
 
     {
       label: "Nossos serviços",
-      component: <ProductSection products={cards} />,
+      component: (
+        <ProductSection globalLoadingFn={toggleLoading} products={cards} />
+      ),
       ref: productSection,
       hidden: false,
     },
@@ -108,7 +112,7 @@ function Home({ blog, cards, partners, testimonials }: LandingProps) {
         <title>Portal Bens Contemplados</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <LandingPageLayout menu={menuItemArray}>
+      <LandingPageLayout loadingState={loadingState} menu={menuItemArray}>
         {navigableArray.map((navigable, index) => {
           return (
             <React.Fragment key={index}>

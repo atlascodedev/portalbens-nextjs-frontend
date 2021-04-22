@@ -20,9 +20,10 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, Autoplay]);
 
 interface Props {
   products: CardProduct[];
+  globalLoadingFn: (loading: boolean) => void;
 }
 
-const ProductSection = ({ products = [] }: Props) => {
+const ProductSection = ({ products = [], globalLoadingFn }: Props) => {
   const ProductFormFeedbackDialog = useEnhancedDialog(
     "Seu formulário foi enviado com sucesso, em breve um membro de nossa equipe entrará em contato para atendé-lo",
     "Formulário enviado com sucesso",
@@ -60,6 +61,8 @@ const ProductSection = ({ products = [] }: Props) => {
     maxValueArg: string | number,
     productTypeArg: ProductType
   ): void => {
+    globalLoadingFn(true);
+
     if (maxValueArg == "") {
       let productVisibleLocalDefault: CardProduct[] = products;
 
@@ -84,6 +87,10 @@ const ProductSection = ({ products = [] }: Props) => {
 
       setVisibleProducts([...filteredProducts]);
     }
+
+    setTimeout(() => {
+      globalLoadingFn(false);
+    }, 1500);
   };
 
   const handleSetProductType = (newProductType: ProductType) => {
