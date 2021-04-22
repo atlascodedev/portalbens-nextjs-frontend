@@ -33,6 +33,12 @@ function Home({ blog, cards, partners, testimonials }: LandingProps) {
   const blogRef = React.useRef<HTMLDivElement>(null);
   const productSection = React.useRef<HTMLDivElement>(null);
 
+  const [loadingState, setLoadingState] = React.useState<boolean>(false);
+
+  const toggleLoading = (loading: boolean) => {
+    setLoadingState(loading);
+  };
+
   const { navigableArray, menuItemArray } = useLandingPageGeneration([
     {
       label: "Hero",

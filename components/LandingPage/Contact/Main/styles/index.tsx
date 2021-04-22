@@ -69,9 +69,11 @@ const ContactInnerImageTextContainer = styled.div`
 const ContactInnerImageTextTitle = styled.div`
   font-size: 20px;
   color: #da4e49;
+  margin-top: 10px;
 
   @media (min-width: 1024px) {
     font-size: 35px;
+    margin-top: 0px;
   }
 `;
 
@@ -111,7 +113,8 @@ const ContactLayoutContainer = ({
           <AdonisImage
             imageURL={imageURL}
             objectFit="cover"
-            mobileHeight={100}
+            height={40}
+            mobileHeight={90}
           />
           <ContactInnerImageTextContainer>
             <ContactInnerImageTextTitle>

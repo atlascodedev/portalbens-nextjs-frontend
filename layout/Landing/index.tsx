@@ -3,6 +3,7 @@ import React from "react";
 import { MenuItem } from "../../@types";
 import Footer from "../../components/LandingPage/Footer/Main";
 import Navbar from "../../components/LandingPage/Navbar/Main";
+import Loading from "../../components/Util/GlobalLoader";
 import LoaderSpinner from "../../components/Util/Loader";
 import { documentBodyScrollToggle } from "../../helper/documentBodyScrollToggle";
 import { useDocumentBodyLock } from "../../hooks/useDocumentBodyLock";
@@ -12,9 +13,15 @@ interface Props {
   children: React.ReactNode;
   menu: MenuItem[];
   navbarAnchored?: boolean;
+  loadingState?: boolean;
 }
 
-const LandingPageLayout = ({ children, menu, navbarAnchored }: Props) => {
+const LandingPageLayout = ({
+  children,
+  menu,
+  navbarAnchored,
+  loadingState = false,
+}: Props) => {
   const [isLoaded, setIsLoaded] = React.useState<boolean>(true);
 
   React.useEffect(() => {
@@ -50,6 +57,7 @@ const LandingPageLayout = ({ children, menu, navbarAnchored }: Props) => {
       />{" "}
       {children}
       <Footer />
+      <Loading isLoading={loadingState} />
     </React.Fragment>
   );
 };

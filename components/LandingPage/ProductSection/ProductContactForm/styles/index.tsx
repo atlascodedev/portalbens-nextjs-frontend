@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const ProductContactFormLayoutRoot = styled.div`
   width: 320px;
-  height: 500px;
+  height: 600px;
   /* min-height: 416px; */
   font-family: "Roboto";
 
