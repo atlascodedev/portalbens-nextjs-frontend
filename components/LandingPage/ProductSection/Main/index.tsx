@@ -119,13 +119,15 @@ const ProductSection = ({ products = [], globalLoadingFn }: Props) => {
         "pt-BR",
         "BRL",
         parseInt(cardInfo.cardValor as string)
-      )} \n\n *Parcelas*: \n\ ${cardInfo.cardInstallment.map((value, index) => {
-        return `*${value.installmentMonths}* vezes de ${formatToCurrency(
-          "pt-BR",
-          "BRL",
-          parseInt(value.installmentValue as string)
-        )} \n `;
-      })}
+      )} \n\n *Parcelas*: \n\ ${cardInfo.cardInstallment
+        .map((value, index) => {
+          return `*${value.installmentMonths}* vezes de ${formatToCurrency(
+            "pt-BR",
+            "BRL",
+            parseInt(value.installmentValue as string)
+          )} `;
+        })
+        .join("\n")}
       \n *Administradora*: ${
         cardInfo.administradora
       } \n\n *Entrada*: ${formatToCurrency(
@@ -209,13 +211,17 @@ const ProductSection = ({ products = [], globalLoadingFn }: Props) => {
                             value.uuid
                           } \n\n <br> <br> Administradora: ${
                             value.administradora
-                          } \n\n <br> <br> Entrada: ${
-                            value.cardEntrada
-                          } \n\n <br> <br> Tipo de carta: ${
+                          } \n\n <br> <br> Entrada: ${formatToCurrency(
+                            "pt-BR",
+                            "BRL",
+                            parseInt(value.cardEntrada.toString())
+                          )} \n\n <br> <br> Tipo de carta: ${
                             value.cardType
-                          } \n\n <br> <br> Valor da carta: ${
-                            value.cardValor
-                          } \n\n <br> <br> Parcelas: ${value.cardInstallment
+                          } \n\n <br> <br> Valor da carta: ${formatToCurrency(
+                            "pt-BR",
+                            "BRL",
+                            parseInt(value.cardValor.toString())
+                          )} \n\n <br> <br> Parcelas: ${value.cardInstallment
                             .map((value, index) => {
                               return `<br>\n\n ${
                                 value.installmentMonths
