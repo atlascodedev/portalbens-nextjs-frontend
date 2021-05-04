@@ -21,14 +21,14 @@ const ProductSearchRoot = styled.div`
   background: #ffffff;
   box-shadow: -1px 4.10064px 4.10064px rgba(0, 0, 0, 0.25);
   border-radius: 7.75161px;
-  font-size: 12px;
+  font-size: 10px;
 
   .MuiSelect-root {
-    font-size: 12px;
+    font-size: 10px;
   }
 
   .MuiInputBase-root {
-    font-size: 12px;
+    font-size: 10px;
   }
 
   @media (min-width: 1024px) {
@@ -129,9 +129,9 @@ const ProductSearchLayout = ({
       <ProductSearchInnerContainer>
         <ProductSearchPriceRangeContainer>
           <div className="title">
-            <div>Quanto você deseja investir?</div>
+            <div>Qual valor do crédito você deseja?</div>
             <Hidden mdDown>
-              <Tooltip title={"Valor referente ao valor de entrada"}>
+              <Tooltip title={"Valor referente ao valor do crédito"}>
                 <SvgIcon component={Info} />
               </Tooltip>
             </Hidden>
@@ -145,7 +145,7 @@ const ProductSearchLayout = ({
               thousandSeparator={","}
               prefix={"Até R$"}
               //   fixedDecimalScale={true}
-              placeholder={"Até R$ 6000"}
+              placeholder={"À partir de R$50,000"}
               onValueChange={({ floatValue, formattedValue, value }) => {
                 if (floatValue) {
                   setMaxValue(floatValue);

@@ -143,7 +143,7 @@ const ProuductIntroLayoutContainer = ({
                       },
                     }}
                   >
-                    <div>O que é carta contemplada?</div>
+                    <div>O que são cartas contempladas?</div>
                   </motion.div>
                   <EtusBar width={"200px"} />
                 </ProductIntroTextTitle>

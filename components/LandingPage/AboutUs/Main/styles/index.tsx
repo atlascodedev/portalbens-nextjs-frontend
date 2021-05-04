@@ -268,9 +268,12 @@ const AboutUsLayoutContainer = ({ imgURL }: AboutUsLayoutContainerProps) => {
                     todo o momento uma relação de segurança, respeito, confiança
                     e gratidão com seus clientes. Fortalecemos nossos valores
                     com a experiência de nosso fundador Moisés de Oliveira que
-                    atua nesse ramo desde 1997. Trabalhamos forte junto de nossa
-                    equipe, sempre em busca de consolidar nossa marca como
-                    referência no mercado financeiro.
+                    atua nesse ramo desde 1997.
+                    <br />
+                    <br />
+                    Trabalhamos forte junto de nossa equipe, sempre em busca de
+                    consolidar nossa marca como referência no mercado
+                    financeiro.
                   </AboutUsAuxText>
                 </motion.div>
               </AboutUsTextContainer>

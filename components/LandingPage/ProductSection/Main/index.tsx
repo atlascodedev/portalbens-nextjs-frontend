@@ -79,7 +79,7 @@ const ProductSection = ({ products = [], globalLoadingFn }: Props) => {
       let filteredProducts = productVisibleLocal.filter(
         (product: CardProduct, index: number) => {
           return (
-            product.cardEntrada <= parseInt(maxValueArg as string) &&
+            product.cardValor >= parseInt(maxValueArg as string) &&
             product.cardType == productTypeArg
           );
         }
