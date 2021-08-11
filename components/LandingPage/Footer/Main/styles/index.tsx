@@ -121,6 +121,8 @@ const FooterSocialIconContainer = styled.div`
 
 interface FooterLayoutProps {}
 
+// https://www.instagram.com/portalbenscontemplados/
+
 const FooterLayout = ({}: FooterLayoutProps) => {
   return (
     <FooterRoot>
@@ -142,15 +144,32 @@ const FooterLayout = ({}: FooterLayoutProps) => {
               </div>
             </FooterUpperContactPartnershipContainer>
             <FooterUpperSocialContainer>
-              <FooterSocialIconContainer>
-                <SvgIcon component={Instagram} />
-              </FooterSocialIconContainer>
-              <FooterSocialIconContainer>
-                <SvgIcon component={Facebook} />
-              </FooterSocialIconContainer>
-              <FooterSocialIconContainer>
-                <SvgIcon component={WhatsApp} />
-              </FooterSocialIconContainer>
+              <a
+                href="
+              https://www.instagram.com/portalbenscontemplados/
+              "
+                target="_blank"
+              >
+                <FooterSocialIconContainer>
+                  <SvgIcon component={Instagram} />
+                </FooterSocialIconContainer>
+              </a>
+              <a
+                href="
+              https://www.facebook.com/portalbenscontemplados
+              "
+                target="_blank"
+              >
+                <FooterSocialIconContainer>
+                  <SvgIcon component={Facebook} />
+                </FooterSocialIconContainer>
+              </a>
+
+              {/* <a href="" target="_blank">
+                <FooterSocialIconContainer>
+                  <SvgIcon component={WhatsApp} />
+                </FooterSocialIconContainer>
+              </a> */}
             </FooterUpperSocialContainer>
           </FooterUpperGridContainer>
         </FooterUpperContainer>

@@ -142,10 +142,11 @@ const ProductSearchLayout = ({
               value={maxValue}
               //   decimalScale={2}
               allowNegative={false}
-              thousandSeparator={","}
+              thousandSeparator={"."}
+              decimalSeparator={","}
               prefix={"Até R$"}
               //   fixedDecimalScale={true}
-              placeholder={"Até R$50,000"}
+              placeholder={"Até R$50.000"}
               onValueChange={({ floatValue, formattedValue, value }) => {
                 if (floatValue) {
                   setMaxValue(floatValue);

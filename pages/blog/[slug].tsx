@@ -27,6 +27,10 @@ const BlogPostContainerRoot = styled.div`
     width: 100%;
   }
 
+  * {
+    font-size: clamp(13px, 2.5vw, 24px) !important;
+  }
+
   overflow-x: hidden;
 `;
 
@@ -136,13 +140,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }) => {
-  const blogPostWhereLikeSlugRequest: AxiosResponse<BlogPostType> = await axios.post(
-    "https://us-central1-portalbens-nextjs-hefesto.cloudfunctions.net/api/collections/entries/portalBlog/where",
-    {
-      key: "slug",
-      value: params.slug,
-    }
-  );
+  const blogPostWhereLikeSlugRequest: AxiosResponse<BlogPostType> =
+    await axios.post(
+      "https://us-central1-portalbens-nextjs-hefesto.cloudfunctions.net/api/collections/entries/portalBlog/where",
+      {
+        key: "slug",
+        value: params.slug,
+      }
+    );
 
   const blogPostWhereLikeSlugData = blogPostWhereLikeSlugRequest.data;
 

@@ -20,9 +20,11 @@ const LandingPageLayout = ({
   children,
   menu,
   navbarAnchored,
-  loadingState 
+  loadingState,
 }: Props) => {
   const [isLoaded, setIsLoaded] = React.useState<boolean>(true);
+
+  // const bodyLock = useDocumentBodyLock(isLoaded);
 
   React.useEffect(() => {
     setTimeout(() => {
@@ -35,11 +37,12 @@ const LandingPageLayout = ({
       <AnimatePresence initial={false}>
         {isLoaded && (
           <motion.div
-            onAnimationComplete={() =>
-              (global.window.document.getElementsByTagName(
+            onAnimationComplete={() => {
+              global.window.document.getElementsByTagName(
                 "html"
-              )[0].style.overflow = "initial")
-            }
+              )[0].style.overflow = "initial";
+              documentBodyScrollToggle(false);
+            }}
             style={{ position: "absolute", zIndex: 9999999 }}
             animate={{ opacity: 1 }}
             exit={{
