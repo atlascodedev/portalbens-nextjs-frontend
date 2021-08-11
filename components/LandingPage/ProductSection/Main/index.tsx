@@ -7,6 +7,7 @@ import SwiperCore, {
   Scrollbar,
   A11y,
   Autoplay,
+  Lazy,
 } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ProductSearch, { ProductSearchProps } from "../ProductSearch";
@@ -16,7 +17,7 @@ import useEnhancedDialog from "../../../../hooks/useEnhancedDialog";
 import formatToCurrency from "../../../../helper/formatToCurrency";
 import ProductContactForm from "../ProductContactForm/Main";
 
-SwiperCore.use([Navigation, Pagination, Scrollbar, Autoplay]);
+SwiperCore.use([Navigation, Pagination, Scrollbar, Autoplay, Lazy]);
 
 interface Props {
   products: CardProduct[];
@@ -30,9 +31,8 @@ const ProductSection = ({ products = [], globalLoadingFn }: Props) => {
     "success"
   );
 
-  const [backdropVisibility, setBackdropVisibility] = React.useState<boolean>(
-    false
-  );
+  const [backdropVisibility, setBackdropVisibility] =
+    React.useState<boolean>(false);
 
   const [formCardDetails, setFormCardDetails] = React.useState<string>("");
 
@@ -46,9 +46,8 @@ const ProductSection = ({ products = [], globalLoadingFn }: Props) => {
   };
 
   const [maxValue, setMaxValue] = React.useState<string | number | null>("");
-  const [productType, setProductType] = React.useState<ProductType>(
-    "Automóvel"
-  );
+  const [productType, setProductType] =
+    React.useState<ProductType>("Automóvel");
   const [visibleProducts, setVisibleProducts] = React.useState<CardProduct[]>(
     []
   );
@@ -79,7 +78,7 @@ const ProductSection = ({ products = [], globalLoadingFn }: Props) => {
       let filteredProducts = productVisibleLocal.filter(
         (product: CardProduct, index: number) => {
           return (
-            product.cardValor >= parseInt(maxValueArg as string) &&
+            product.cardValor <= parseInt(maxValueArg as string) &&
             product.cardType == productTypeArg
           );
         }
@@ -170,6 +169,7 @@ const ProductSection = ({ products = [], globalLoadingFn }: Props) => {
 
       <div style={{ width: "100%" }}>
         <Swiper
+          lazy
           id="swiper-products"
           slidesPerView={"auto"}
           centeredSlides={visibleProducts.length <= 3 ? true : false}
