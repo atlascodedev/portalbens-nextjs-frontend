@@ -14,6 +14,185 @@ import { CardInstallment, CardProduct, Product } from "../../../../../@types";
 import _ from "lodash";
 import formatToCurrency from "../../../../../helper/formatToCurrency";
 import { ProductCardProps } from "../";
+import CustomTypeIcon from "../CustomTypeIcon";
+
+interface ProductCardLayoutProps extends ProductCardProps {}
+
+const switchCardIcon = (
+  type: ProductCardProps["cardType"],
+  boatPlane?: ProductCardProps["cardBoatPlane"]
+) => {
+  if (type === "Imóvel") {
+    return Home;
+  } else if (type === "Automóvel" && !boatPlane) {
+    return DriveEta;
+  } else if (type === "Automóvel" && boatPlane) {
+    return CustomTypeIcon;
+  }
+};
+
+const ProductCardLayout = ({
+  administradora,
+  cardDestaque,
+  cardEntrada,
+  cardExpire,
+  cardInstallment,
+  cardSituation,
+  cardType,
+  cardValor,
+  uuid,
+  formCallback,
+  whatsAppCallback,
+  cardBoatPlane,
+}: ProductCardLayoutProps) => {
+  const handleFormCallback = () => {
+    if (formCallback) {
+      formCallback();
+    } else {
+      console.log("No  call back was passed to a card component");
+    }
+  };
+
+  const handleWhatsAppCallback = () => {
+    if (whatsAppCallback) {
+      whatsAppCallback();
+    } else {
+      console.log("no callback was passed down to a card component");
+    }
+  };
+
+  return (
+    <ProductCardRoot>
+      <ProductCardInnerContainer>
+        <ProductCardHeader>
+          <ProductCardHeaderInnerContainer>
+            <div
+              style={{
+                width: "100%",
+              }}
+            >
+              <Tooltip
+                title={
+                  cardType === "Automóvel" && cardBoatPlane
+                    ? "Esta carta pode ser utilizada para véiculos terrestres, embarcações e aeronaves."
+                    : cardType === "Automóvel" && !cardBoatPlane
+                    ? "Esta carta pode ser utilizada para veículos terrestres"
+                    : "Esta carta pode ser utilizada para imóveis"
+                }
+              >
+                <ProductCardHeaderInnerIconContainer>
+                  <SvgIcon
+                    component={switchCardIcon(cardType, cardBoatPlane)}
+                  ></SvgIcon>
+                </ProductCardHeaderInnerIconContainer>
+              </Tooltip>
+            </div>
+            <ProductCardHeaderInnerLabel>
+              {cardType == "Automóvel" ? "Veículo" : "Imóvel"}
+            </ProductCardHeaderInnerLabel>
+            <ProductCardHeaderInnerSpecialDealIconContainer>
+              <Tooltip
+                title={
+                  <React.Fragment>
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                      <div style={{ fontWeight: "bold", fontStyle: "italic" }}>
+                        Alerta para grande oferta:
+                      </div>
+                      <div>Este pode ser um ótimo negócio!</div>
+                    </div>
+                  </React.Fragment>
+                }
+              >
+                <ProductSpecialDealIconWrapper
+                  style={{ display: cardDestaque ? "flex" : "none" }}
+                >
+                  <SvgIcon component={Star} />
+                </ProductSpecialDealIconWrapper>
+              </Tooltip>
+            </ProductCardHeaderInnerSpecialDealIconContainer>
+          </ProductCardHeaderInnerContainer>
+        </ProductCardHeader>
+        <ProductCardContentContainer>
+          <ProductCardContentInfo>
+            <div className="infoContainer">
+              <div className="title">Valor do crédito</div>
+              <div className="info">
+                {formatToCurrency(
+                  "pt-BR",
+                  "BRL",
+                  parseInt(cardValor as string)
+                )}
+              </div>
+            </div>
+            <div className="infoContainer">
+              <div className="title">Entrada</div>
+              <div className="info">
+                {formatToCurrency(
+                  "pt-BR",
+                  "BRL",
+                  parseInt(cardEntrada as string)
+                )}
+              </div>
+            </div>
+            <div className="infoContainer">
+              <div className="title">Saldo</div>
+              <div className="info">
+                {cardInstallment.map(
+                  (value: CardInstallment, index: number) => {
+                    return (
+                      <div style={{ display: "flex" }} key={index}>
+                        <div
+                          className="months"
+                          style={{
+                            display: "flex",
+                            alignItems: "flex-end",
+                            fontWeight: "bold",
+                            fontSize: "14px",
+                            marginRight: "10px",
+                          }}
+                        >
+                          {value.installmentMonths + "x"}
+                        </div>
+                        <div className="installmentValue">
+                          {formatToCurrency(
+                            "pt-BR",
+                            "BRL",
+                            parseInt(value.installmentValue as string)
+                          )}
+                        </div>
+                      </div>
+                    );
+                  }
+                )}
+              </div>
+            </div>
+            <div className="infoContainer last">
+              <div className="title">Administradora</div>
+              <div className="info">{_.capitalize(administradora)}</div>
+            </div>
+          </ProductCardContentInfo>
+          <ProductCardContentContact>
+            <Tooltip title={"Contato via formulário"}>
+              <div style={{ marginTop: "29px" }} onClick={handleFormCallback}>
+                <CircleAroundIcon>
+                  <SvgIcon component={Email} />
+                </CircleAroundIcon>
+              </div>
+            </Tooltip>
+
+            <Tooltip title={"Contato via WhatsApp"}>
+              <CircleAroundIcon onClick={handleWhatsAppCallback}>
+                <SvgIcon component={WhatsApp} />
+              </CircleAroundIcon>
+            </Tooltip>
+          </ProductCardContentContact>
+        </ProductCardContentContainer>
+      </ProductCardInnerContainer>
+    </ProductCardRoot>
+  );
+};
+
+export default ProductCardLayout;
 
 const ProductCardRoot = styled.div`
   width: 295px;
@@ -152,157 +331,3 @@ const CircleAroundIcon = styled.div`
     font-size: 1.75rem;
   }
 `;
-
-interface ProductCardLayoutProps extends ProductCardProps {}
-
-const ProductCardLayout = ({
-  administradora,
-  cardDestaque,
-  cardEntrada,
-  cardExpire,
-  cardInstallment,
-  cardSituation,
-  cardType,
-  cardValor,
-  uuid,
-  formCallback,
-  whatsAppCallback,
-}: ProductCardLayoutProps) => {
-  const handleFormCallback = () => {
-    if (formCallback) {
-      formCallback();
-    } else {
-      console.log("No  call back was passed to a card component");
-    }
-  };
-
-  const handleWhatsAppCallback = () => {
-    if (whatsAppCallback) {
-      whatsAppCallback();
-    } else {
-      console.log("no callback was passed down to a card component");
-    }
-  };
-
-  return (
-    <ProductCardRoot>
-      <ProductCardInnerContainer>
-        <ProductCardHeader>
-          <ProductCardHeaderInnerContainer>
-            <div
-              style={{
-                width: "100%",
-              }}
-            >
-              <ProductCardHeaderInnerIconContainer>
-                <SvgIcon
-                  component={cardType == "Automóvel" ? DriveEta : Home}
-                ></SvgIcon>
-              </ProductCardHeaderInnerIconContainer>
-            </div>
-            <ProductCardHeaderInnerLabel>
-              {cardType == "Automóvel" ? "Veículo" : "Imóvel"}
-            </ProductCardHeaderInnerLabel>
-            <ProductCardHeaderInnerSpecialDealIconContainer>
-              <Tooltip
-                title={
-                  <React.Fragment>
-                    <div style={{ display: "flex", flexDirection: "column" }}>
-                      <div style={{ fontWeight: "bold", fontStyle: "italic" }}>
-                        Alerta para grande oferta:
-                      </div>
-                      <div>Este pode ser um ótimo negócio!</div>
-                    </div>
-                  </React.Fragment>
-                }
-              >
-                <ProductSpecialDealIconWrapper
-                  style={{ display: cardDestaque ? "flex" : "none" }}
-                >
-                  <SvgIcon component={Star} />
-                </ProductSpecialDealIconWrapper>
-              </Tooltip>
-            </ProductCardHeaderInnerSpecialDealIconContainer>
-          </ProductCardHeaderInnerContainer>
-        </ProductCardHeader>
-        <ProductCardContentContainer>
-          <ProductCardContentInfo>
-            <div className="infoContainer">
-              <div className="title">Valor do crédito</div>
-              <div className="info">
-                {formatToCurrency(
-                  "pt-BR",
-                  "BRL",
-                  parseInt(cardValor as string)
-                )}
-              </div>
-            </div>
-            <div className="infoContainer">
-              <div className="title">Entrada</div>
-              <div className="info">
-                {formatToCurrency(
-                  "pt-BR",
-                  "BRL",
-                  parseInt(cardEntrada as string)
-                )}
-              </div>
-            </div>
-            <div className="infoContainer">
-              <div className="title">Saldo</div>
-              <div className="info">
-                {cardInstallment.map(
-                  (value: CardInstallment, index: number) => {
-                    return (
-                      <div style={{ display: "flex" }} key={index}>
-                        <div
-                          className="months"
-                          style={{
-                            display: "flex",
-                            alignItems: "flex-end",
-                            fontWeight: "bold",
-                            fontSize: "14px",
-                            marginRight: "10px",
-                          }}
-                        >
-                          {value.installmentMonths + "x"}
-                        </div>
-                        <div className="installmentValue">
-                          {formatToCurrency(
-                            "pt-BR",
-                            "BRL",
-                            parseInt(value.installmentValue as string)
-                          )}
-                        </div>
-                      </div>
-                    );
-                  }
-                )}
-              </div>
-            </div>
-            <div className="infoContainer last">
-              <div className="title">Administradora</div>
-              <div className="info">{_.capitalize(administradora)}</div>
-            </div>
-          </ProductCardContentInfo>
-          <ProductCardContentContact>
-            <Tooltip title={"Contato via formulário"}>
-              <div style={{ marginTop: "29px" }} onClick={handleFormCallback}>
-                <CircleAroundIcon>
-                  <SvgIcon component={Email} />
-                </CircleAroundIcon>
-              </div>
-            </Tooltip>
-
-            <Tooltip title={"Contato via WhatsApp"}>
-              <CircleAroundIcon onClick={handleWhatsAppCallback}>
-                <SvgIcon component={WhatsApp} />
-              </CircleAroundIcon>
-            </Tooltip>
-          </ProductCardContentContact>
-        </ProductCardContentContainer>
-      </ProductCardInnerContainer>
-    </ProductCardRoot>
-  );
-};
-
-export default ProductCardLayout;

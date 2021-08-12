@@ -80,6 +80,7 @@ export interface CardProduct {
   cardExpire: EpochDate;
   cardInstallment: CardInstallment[];
   uuid: string;
+  cardBoatPlane?: boolean;
 }
 
 export interface Product {
