@@ -11,3 +11,5 @@ export const documentBodyScrollToggle: (locked: boolean) => void = (
     global.window.document.documentElement.style.overflow = "initial";
   }
 };
+
+// why
